@@ -1,0 +1,1164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Every Nobel Prize in Chemistry from 1901 to 2025, laid out as a periodic table, with charts on laureate age, shared prizes, fields, countries and women laureates. An independent infographic.">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Periodic Table of Laureates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&display=swap">
+<style>
+/* Layout: a periodic-table poster. Decades are rows and years are columns, as the hero.
+   The findings below run as text-left / chart-right bands, then records and sources. */
+:root {
+  --bg: #edf0ec;
+  --surface: #fbfcfa;
+  --ink: #13201b;
+  --ink-2: #46534d;
+  --muted: #6f7c76;
+  --rule: #d5dcd7;
+  --rule-2: #bcc6c0;
+  --gold: #b07a10;
+  --gold-ink: #845a05;
+  --dot: #687872;
+  --mix: 20%;
+  /* Field colours: validated categorical order (adjacent CVD ΔE ≥ 9) */
+  --f-bio: #1baf7a;
+  --f-org: #eb6834;
+  --f-phys: #2a78d6;
+  --f-inorg: #eda100;
+  --f-meth: #e87ba4;
+  --f-nuc: #4a3aa7;
+  /* Team size: one-hue ordinal ramp */
+  --ord-1: #86b6ef;
+  --ord-2: #2a78d6;
+  --ord-3: #104281;
+  --seq: #256abf;
+  --seq-text-hi: #ffffff;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1412;
+    --surface: #151e1b;
+    --ink: #ebf1ed;
+    --ink-2: #b1beb7;
+    --muted: #84938c;
+    --rule: #26322d;
+    --rule-2: #3a4842;
+    --gold: #e2b24a;
+    --gold-ink: #ebc56f;
+    --dot: #8e9e97;
+    --mix: 30%;
+    --f-bio: #199e70;
+    --f-org: #d95926;
+    --f-phys: #3987e5;
+    --f-inorg: #c98500;
+    --f-meth: #d55181;
+    --f-nuc: #9085e9;
+    --ord-1: #1c5cab;
+    --ord-2: #3987e5;
+    --ord-3: #9ec5f4;
+    --seq: #3987e5;
+    --seq-text-hi: #ffffff;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1412;
+  --surface: #151e1b;
+  --ink: #ebf1ed;
+  --ink-2: #b1beb7;
+  --muted: #84938c;
+  --rule: #26322d;
+  --rule-2: #3a4842;
+  --gold: #e2b24a;
+  --gold-ink: #ebc56f;
+  --dot: #8e9e97;
+  --mix: 30%;
+  --f-bio: #199e70;
+  --f-org: #d95926;
+  --f-phys: #3987e5;
+  --f-inorg: #c98500;
+  --f-meth: #d55181;
+  --f-nuc: #9085e9;
+  --ord-1: #1c5cab;
+  --ord-2: #3987e5;
+  --ord-3: #9ec5f4;
+  --seq: #3987e5;
+  --seq-text-hi: #ffffff;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+.page {
+  padding-inline: clamp(16px, 4vw, 44px);
+  padding-block: clamp(24px, 5vw, 56px) 40px;
+}
+.band { max-width: 1180px; margin-inline: auto; }
+h1, h2, h3, h4 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+p { margin: 0; }
+a { color: inherit; text-decoration-color: var(--rule-2); text-underline-offset: 3px; }
+a:hover { text-decoration-color: currentColor; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+/* ---------- Hero ---------- */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: clamp(24px, 5vw, 64px);
+  align-items: end;
+}
+.hero h1 {
+  font-size: clamp(2.6rem, 6.4vw, 5.2rem);
+  line-height: .94;
+  font-weight: 760;
+  font-stretch: 82%;
+  letter-spacing: -.025em;
+  margin-block: 14px 20px;
+}
+.lede { font-size: clamp(1.08rem, 1.6vw, 1.28rem); max-width: 34em; color: var(--ink-2); }
+.lede strong { color: var(--ink); font-weight: 600; }
+.next {
+  margin-top: 26px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  align-items: baseline;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule-2);
+  max-width: 40em;
+}
+.next .eyebrow { color: var(--gold-ink); }
+.next-when { font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; }
+.next-local { color: var(--ink-2); font-size: .95rem; width: 100%; }
+.next-count { font-family: var(--font-mono); font-size: 13px; color: var(--gold-ink); }
+
+/* The big element card */
+.element {
+  justify-self: end;
+  width: min(100%, 330px);
+  aspect-ratio: 1 / 1.12;
+  background: var(--surface);
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  padding: 18px 20px;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  position: relative;
+}
+.el-top { display: flex; justify-content: space-between; align-items: baseline; }
+.el-num { font-family: var(--font-mono); font-size: 2rem; font-weight: 600; line-height: 1; }
+.el-cap { font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: .04em; }
+.el-sym {
+  font-family: var(--font-display);
+  font-size: clamp(6rem, 13vw, 9.5rem);
+  font-weight: 700;
+  line-height: .9;
+  letter-spacing: -.04em;
+  align-self: center;
+}
+.el-name { font-family: var(--font-display); font-size: 1.35rem; font-weight: 500; }
+.el-bottom { display: flex; justify-content: space-between; align-items: baseline; margin-top: 4px; }
+.el-mass { font-family: var(--font-mono); font-size: 1.15rem; font-weight: 500; }
+
+/* ---------- Stat strip ---------- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: clamp(36px, 6vw, 64px);
+  border-top: 1px solid var(--rule-2);
+  border-bottom: 1px solid var(--rule-2);
+}
+.stat { padding: 18px 18px 20px 0; display: grid; gap: 6px; align-content: start; }
+.stat + .stat { padding-left: 18px; border-left: 1px solid var(--rule); }
+.stat-v { font-family: var(--font-display); font-size: clamp(1.9rem, 3.6vw, 2.7rem); font-weight: 650; line-height: 1; font-stretch: 88%; }
+.stat-v small { font-size: .55em; font-weight: 500; color: var(--ink-2); }
+.stat-l { font-size: .95rem; color: var(--ink-2); line-height: 1.4; }
+
+/* ---------- Section heads ---------- */
+section { margin-top: clamp(56px, 8vw, 96px); }
+.sec-head { display: grid; gap: 10px; max-width: 46em; margin-bottom: 22px; }
+.sec-head h2, .finding h2 {
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+  font-weight: 700;
+  font-stretch: 86%;
+  line-height: 1.05;
+  letter-spacing: -.015em;
+}
+.sec-head p, .finding p { color: var(--ink-2); }
+
+/* ---------- Filters ---------- */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  padding: 5px 13px 5px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--rule-2);
+  background: var(--surface);
+  color: var(--ink);
+  font: 500 14px/1.2 var(--font-display);
+  cursor: pointer;
+}
+.chip:hover { border-color: var(--ink-2); }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.chip .sw { width: 11px; height: 11px; border-radius: 3px; background: var(--c); flex: none; }
+.chip .sw.round { border-radius: 50%; background: var(--gold); }
+.chip-n { font-family: var(--font-mono); font-size: 12px; opacity: .7; }
+
+/* ---------- Periodic table ---------- */
+.ptable {
+  display: grid;
+  grid-template-columns: 3.6rem repeat(10, minmax(0, 1fr));
+  gap: 6px;
+}
+.pt-colhead, .pt-rowhead {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.pt-colhead { text-align: center; padding-bottom: 2px; }
+.pt-rowhead { display: flex; align-items: center; justify-content: flex-end; padding-right: 6px; }
+.pt-corner { font-family: var(--font-mono); font-size: 10px; color: var(--muted); text-align: right; padding-right: 6px; }
+.tile {
+  --c: var(--rule-2);
+  position: relative;
+  min-height: 7.1rem;
+  display: flex;
+  flex-direction: column;
+  padding: 6px 7px 7px;
+  border-radius: 4px;
+  background: color-mix(in oklab, var(--c) var(--mix), var(--surface));
+  border: 1px solid color-mix(in oklab, var(--c) 55%, var(--surface));
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  min-width: 0;
+  transition: opacity .2s ease, transform .15s ease;
+}
+button.tile { cursor: pointer; }
+button.tile:hover { transform: translateY(-2px); }
+.tile[aria-pressed="true"] { outline: 2px solid var(--ink); outline-offset: 1px; }
+.tile.dim { opacity: .2; }
+.t-top { display: flex; justify-content: space-between; align-items: center; gap: 4px; }
+.t-year { font-family: var(--font-mono); font-size: 11px; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+.t-dots { display: flex; gap: 3px; }
+.t-dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--ink); opacity: .75; }
+.t-dots i.w { background: var(--gold); opacity: 1; box-shadow: 0 0 0 1px var(--surface); }
+.t-sym {
+  font-family: var(--font-display);
+  font-size: 1.85rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -.02em;
+  margin-block: 6px 5px;
+}
+.t-label {
+  font-family: var(--font-display);
+  font-size: 10.5px;
+  line-height: 1.22;
+  font-stretch: 88%;
+  color: var(--ink-2);
+  overflow-wrap: anywhere;
+}
+.tile.none {
+  background: repeating-linear-gradient(45deg, transparent 0 5px, var(--rule) 5px 6px), var(--bg);
+  border: 1px dashed var(--rule-2);
+}
+.tile.none .t-sym { color: var(--muted); font-weight: 400; }
+.tile.next-tile { border: 1.5px dashed var(--gold); background: var(--surface); }
+.tile.next-tile .t-sym { color: var(--gold-ink); }
+.tile.future { background: transparent; border: 1px dashed var(--rule); min-height: 0; }
+.tile.key { background: transparent; border: 1px solid var(--rule-2); cursor: default; }
+.tile.key .t-sym { color: var(--ink-2); }
+.key-ann { font-family: var(--font-mono); font-size: 9px; line-height: 1.3; color: var(--muted); }
+.pt-note { font-size: .92rem; color: var(--muted); margin-top: 10px; display: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .tile.anim { animation: tile-in .5s cubic-bezier(.2, .7, .2, 1) both; animation-delay: calc(var(--i) * 6ms); }
+  @keyframes tile-in { from { opacity: .3; transform: translateY(5px) scale(.97); } }
+}
+
+/* ---------- Detail panel ---------- */
+.detail {
+  margin-top: 22px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: clamp(18px, 3vw, 28px);
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  gap: 8px 28px;
+}
+.d-year { font-family: var(--font-display); font-weight: 700; font-size: 3.2rem; line-height: .9; font-stretch: 85%; }
+.d-sym { font-family: var(--font-mono); font-size: 13px; color: var(--muted); margin-top: 8px; }
+.d-field { display: inline-flex; align-items: center; gap: 7px; font: 500 13px/1.2 var(--font-display); color: var(--ink-2); }
+.d-field i { width: 11px; height: 11px; border-radius: 3px; background: var(--c); }
+.d-title { font-size: clamp(1.4rem, 2.6vw, 1.9rem); font-weight: 650; line-height: 1.1; margin-block: 6px 16px; font-stretch: 90%; }
+.d-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px 22px; }
+.d-list li { border-top: 1px solid var(--rule); padding-top: 12px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.d-name { font-size: 1.12rem; font-weight: 650; display: flex; align-items: center; gap: 7px; }
+.d-name .wdot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex: none; }
+.d-meta { font-family: var(--font-mono); font-size: 12px; color: var(--ink-2); line-height: 1.5; }
+.d-mot { font-style: italic; color: var(--ink); font-size: 1rem; line-height: 1.45; }
+.d-note { font-size: .92rem; color: var(--gold-ink); }
+.d-link { font-family: var(--font-display); font-size: 13px; color: var(--ink-2); }
+.d-empty { color: var(--ink-2); max-width: 40em; }
+
+/* ---------- Portraits ---------- */
+.d-who { display: flex; gap: 12px; align-items: center; min-width: 0; }
+.d-ph { width: 64px; height: 64px; border-radius: 5px; object-fit: cover; flex: none; background: var(--rule); }
+.mono-ph {
+  display: inline-grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--ink);
+  background: color-mix(in oklab, var(--c, var(--rule-2)) var(--mix), var(--surface));
+  border: 1px dashed color-mix(in oklab, var(--c, var(--rule-2)) 65%, var(--surface));
+}
+.d-ph.mono-ph { font-size: 1.35rem; }
+.d-credit { font-family: var(--font-display); font-size: 11.5px; line-height: 1.4; color: var(--muted); }
+.d-credit a { color: inherit; }
+.tf { display: flex; gap: 4px; margin-bottom: 7px; }
+.tip-ph { width: 44px; height: 44px; border-radius: 4px; object-fit: cover; background: var(--ink-2); }
+.tip-ph.mono-ph { font-size: 13px; }
+.women li { grid-template-columns: 3rem 30px minmax(0, 1fr); align-items: center; }
+.w-ph { width: 30px; height: 30px; border-radius: 3px; object-fit: cover; background: var(--rule); }
+.w-ph.mono-ph { font-size: 11px; }
+ol.credits { margin: 10px 0 0; padding-left: 1.4em; columns: 2 22em; column-gap: 32px; font-size: .85rem; line-height: 1.45; }
+ol.credits li { break-inside: avoid; margin-bottom: 5px; }
+.photo-note { grid-column: 1 / -1; }
+
+/* ---------- Findings ---------- */
+.finding {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 20px clamp(24px, 4vw, 56px);
+  padding-top: 26px;
+  border-top: 1px solid var(--rule-2);
+}
+.finding + .finding { margin-top: clamp(44px, 6vw, 72px); }
+.finding-text { display: grid; gap: 12px; align-content: start; }
+.finding-text .big { font-family: var(--font-display); font-size: 1rem; color: var(--ink); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font: 13px/1.3 var(--font-display); color: var(--ink-2); margin-top: 4px; }
+.legend span { display: inline-flex; align-items: center; gap: 7px; }
+.lg-sw { width: 11px; height: 11px; border-radius: 3px; background: var(--c); }
+.lg-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--c); }
+.lg-line { width: 18px; height: 2px; background: var(--c); border-radius: 2px; }
+.chart { position: relative; width: 100%; min-width: 0; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart text { font-family: var(--font-mono); font-size: 11px; fill: var(--muted); font-variant-numeric: tabular-nums; }
+.chart .ann { font-family: var(--font-display); font-size: 12px; fill: var(--ink-2); }
+.chart .ann-b { font-family: var(--font-display); font-size: 12px; font-weight: 600; fill: var(--ink); }
+.grid-l { stroke: var(--rule); stroke-width: 1; }
+.base-l { stroke: var(--rule-2); stroke-width: 1; }
+.col-hit { fill: transparent; }
+.col-hit.on { fill: var(--ink); fill-opacity: .05; }
+details.tview { margin-top: 12px; font-size: .92rem; }
+details.tview summary { cursor: pointer; font-family: var(--font-display); font-size: 13px; color: var(--ink-2); width: fit-content; }
+.tscroll { overflow-x: auto; margin-top: 8px; }
+table.dt { border-collapse: collapse; font-family: var(--font-mono); font-size: 12px; font-variant-numeric: tabular-nums; min-width: 100%; }
+table.dt th, table.dt td { padding: 4px 9px; text-align: right; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+table.dt th:first-child, table.dt td:first-child { text-align: left; }
+table.dt thead th { color: var(--muted); font-weight: 500; }
+
+/* Heat table */
+.heat-wrap { overflow-x: auto; }
+table.heat { border-collapse: separate; border-spacing: 3px; font-family: var(--font-mono); font-size: 12px; font-variant-numeric: tabular-nums; width: 100%; min-width: 620px; }
+table.heat th { font-weight: 500; color: var(--muted); padding: 2px 4px; }
+table.heat th.rowh { text-align: left; color: var(--ink); font-family: var(--font-display); font-size: 13px; padding-right: 8px; white-space: nowrap; }
+table.heat td { text-align: center; height: 30px; border-radius: 3px; color: var(--ink); }
+table.heat td.z { color: var(--muted); opacity: .45; }
+table.heat td.tot { background: transparent; font-weight: 600; text-align: right; padding-left: 8px; }
+
+/* Waffle */
+.waffle-box { display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: 4px 8px; align-items: center; }
+.waffle-lab { font-family: var(--font-mono); font-size: 11px; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+.waffle-row { display: grid; grid-template-columns: repeat(20, minmax(0, 1fr)); gap: 3px; }
+.waffle-row i { aspect-ratio: 1; border-radius: 2px; background: var(--rule-2); max-width: 100%; }
+.waffle-row i.w { background: var(--gold); }
+.women { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 6px; }
+.women li { display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: 10px; font-size: .98rem; align-items: baseline; }
+.women .mono { font-size: 12px; color: var(--gold-ink); }
+.women button { all: unset; cursor: pointer; text-decoration: underline; text-decoration-color: var(--rule-2); text-underline-offset: 3px; }
+.women button:hover { text-decoration-color: currentColor; }
+.women button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+/* ---------- Records ---------- */
+.records { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 clamp(20px, 3vw, 40px); }
+.rec { border-top: 1px solid var(--rule-2); padding-block: 16px 24px; display: grid; gap: 6px; align-content: start; }
+.rec h3 { font-size: 1.2rem; font-weight: 650; }
+.rec p { color: var(--ink-2); font-size: 1rem; }
+.rec .yrs { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+
+/* ---------- Footer ---------- */
+footer.sources { margin-top: clamp(56px, 8vw, 96px); padding-top: 22px; border-top: 1px solid var(--rule-2); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 40px; font-size: .95rem; color: var(--ink-2); }
+footer.sources h2 { font-size: 1rem; font-weight: 650; color: var(--ink); margin-bottom: 6px; }
+footer.sources p + p { margin-top: 8px; }
+.fineprint { grid-column: 1 / -1; font-size: .85rem; color: var(--muted); }
+
+/* ---------- Tooltip ---------- */
+#tip {
+  position: fixed;
+  z-index: 20;
+  pointer-events: none;
+  max-width: 260px;
+  background: var(--ink);
+  color: var(--bg);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font: 13px/1.35 var(--font-display);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .18);
+}
+#tip b { font-weight: 650; }
+#tip .tm { font-family: var(--font-mono); font-size: 11px; opacity: .75; }
+#tip .tr { display: flex; align-items: center; gap: 6px; }
+#tip .tr i { width: 9px; height: 9px; border-radius: 2px; background: var(--c); box-shadow: 0 0 0 1px var(--bg); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px) {
+  .tile { min-height: 4.6rem; }
+  .t-label { display: none; }
+  .key-ann { display: none; }
+  .pt-note { display: block; }
+  .finding { grid-template-columns: minmax(0, 1fr); }
+  .records { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .hero { grid-template-columns: minmax(0, 1fr); }
+  .element { justify-self: start; width: min(100%, 250px); padding: 14px 16px; }
+  .el-sym { font-size: 6rem; }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stat:nth-child(3) { padding-left: 0; border-left: 0; }
+  .stat:nth-child(n+3) { border-top: 1px solid var(--rule); }
+  .detail { grid-template-columns: minmax(0, 1fr); }
+  .d-year { font-size: 2.6rem; }
+  footer.sources { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 620px) {
+  .ptable { grid-template-columns: 2.2rem repeat(10, minmax(0, 1fr)); gap: 3px; }
+  .tile { min-height: 2.6rem; padding: 3px 2px; align-items: center; justify-content: center; border-radius: 3px; }
+  .t-top { display: none; }
+  .t-sym { font-size: .82rem; margin: 0; letter-spacing: 0; }
+  .tile.key .t-sym { font-size: .7rem; }
+  .pt-rowhead { font-size: 9px; padding-right: 3px; }
+  .pt-corner { font-size: 0; }
+  .records { grid-template-columns: minmax(0, 1fr); }
+}
+</style>
+
+</head>
+<body>
+<main class="page">
+  <header class="band hero">
+    <div>
+      <p class="eyebrow">The Nobel Prize in Chemistry · 1901–2025</p>
+      <h1>A periodic table of laureates</h1>
+      <p class="lede">Every chemistry prize since 1901, laid out like the periodic table: each decade is a row and each year a column. <strong>117 prizes, 200 awards, 198 people.</strong> Below the table: who wins, how old they are, where they work, and which kinds of chemistry the committee rewards.</p>
+      <div class="next" id="next" aria-live="polite">
+        <span class="eyebrow">Next: the 2026 prize</span>
+        <span class="next-when">Wednesday 7 October, 11:45 CEST</span>
+        <span class="next-count" id="next-count"></span>
+        <span class="next-local" id="next-local"></span>
+      </div>
+    </div>
+    <div class="element" aria-label="Summary card styled as a periodic-table element: 117 prizes, 198 laureates">
+      <div class="el-top"><span class="el-num">117</span><span class="el-cap">prizes</span></div>
+      <div class="el-sym" aria-hidden="true">Ch</div>
+      <div class="el-name">Chemistry</div>
+      <div class="el-bottom"><span class="el-mass">198</span><span class="el-cap">laureates</span></div>
+    </div>
+  </header>
+
+  <div class="band stats" id="stats"></div>
+
+  <section class="band" id="table" aria-labelledby="table-h">
+    <div class="sec-head">
+      <h2 id="table-h">Every prize, 1901–2025</h2>
+      <p>Each tile is one year's prize, coloured by field. The symbol is our shorthand for the discovery, and the dots count the people who shared it, with women in gold. Select a tile to see who won and why; use the buttons to pick out one field.</p>
+    </div>
+    <div class="filters" id="filters" role="group" aria-label="Highlight prizes"></div>
+    <div class="ptable" id="ptable"></div>
+    <p class="pt-note">Rows are decades and columns the last digit of the year. Hatched tiles are years with no prize.</p>
+    <article class="detail" id="detail" aria-live="polite"></article>
+  </section>
+
+  <section class="band" aria-label="Findings">
+    <div class="finding" id="f-age">
+      <div class="finding-text">
+        <p class="eyebrow">Age at the award</p>
+        <h2>Laureates keep getting older</h2>
+        <p>Before 1950 the typical chemistry laureate was 50. Since 2001 the median is 68, and in the 2010s it was 72. One often-cited reason is the growing wait between a discovery and its prize.</p>
+        <p>The youngest winner, Frédéric Joliot, was 35 in 1935. The oldest, John B. Goodenough, was 97 in 2019.</p>
+        <div class="legend">
+          <span><i class="lg-dot" style="--c:var(--dot)"></i>Each laureate</span>
+          <span><i class="lg-dot" style="--c:var(--gold)"></i>Women</span>
+          <span><i class="lg-line" style="--c:var(--ink)"></i>Median for the decade</span>
+        </div>
+      </div>
+      <div>
+        <div class="chart" id="c-age" role="img" aria-label="Scatter plot of laureate age at award by year, with decade medians rising from 50 in the 1900s to 72 in the 2010s"></div>
+        <details class="tview"><summary>Show as table</summary><div class="tscroll" id="t-age"></div></details>
+      </div>
+    </div>
+
+    <div class="finding" id="f-team">
+      <div class="finding-text">
+        <p class="eyebrow">Shared prizes</p>
+        <h2>The solo laureate has all but vanished</h2>
+        <p>Through the 1970s, most prizes went to a single person. Dan Shechtman's 2011 prize for quasicrystals is the most recent unshared one. Every prize since has gone to two or three people, the most the rules allow.</p>
+        <div class="legend">
+          <span><i class="lg-sw" style="--c:var(--ord-1)"></i>One laureate</span>
+          <span><i class="lg-sw" style="--c:var(--ord-2)"></i>Two</span>
+          <span><i class="lg-sw" style="--c:var(--ord-3)"></i>Three</span>
+        </div>
+      </div>
+      <div>
+        <div class="chart" id="c-team" role="img" aria-label="Stacked columns of prizes per decade by number of laureates"></div>
+        <details class="tview"><summary>Show as table</summary><div class="tscroll" id="t-team"></div></details>
+      </div>
+    </div>
+
+    <div class="finding" id="f-field">
+      <div class="finding-text">
+        <p class="eyebrow">Fields</p>
+        <h2>Biochemistry moved to the centre</h2>
+        <p>Up to 1950, organic chemistry won the most prizes: 13 of 42. Since 1951, biochemistry has led, with 23 of 75, from protein structures to genome editing. By our grouping, nuclear chemistry has not won since radiocarbon dating in 1960.</p>
+        <p class="big">Prizes per decade, by field</p>
+        <div class="legend" id="lg-field"></div>
+      </div>
+      <div>
+        <div class="chart" id="c-field" role="img" aria-label="Stacked columns of prizes per decade by field"></div>
+        <details class="tview"><summary>Show as table</summary><div class="tscroll" id="t-field"></div></details>
+      </div>
+    </div>
+
+    <div class="finding" id="f-geo">
+      <div class="finding-text">
+        <p class="eyebrow">Where the work was done</p>
+        <h2>From Germany to the United States</h2>
+        <p>Before 1940, German institutions took 18 of the 40 awards. Britain led in the 1950s and 1960s. The US has led every decade since the 1970s, with 88 awards in all. Of those, 29 went to people born outside the US.</p>
+        <p class="big">Awards by country of the laureate's institution</p>
+      </div>
+      <div>
+        <div class="heat-wrap" id="c-geo"></div>
+      </div>
+    </div>
+
+    <div class="finding" id="f-women">
+      <div class="finding-text">
+        <p class="eyebrow">Women laureates</p>
+        <h2>Eight women in 125 years</h2>
+        <p>Eight of the 198 laureates are women. After Dorothy Hodgkin in 1964, no woman won for 45 years. Four of the eight have won since 2018.</p>
+        <ul class="women" id="women-list"></ul>
+      </div>
+      <div>
+        <p class="eyebrow" style="margin-bottom:10px">All 200 awards in order, 20 per row</p>
+        <div class="waffle-box" id="c-waffle" role="img" aria-label="Grid of 200 awards in date order with the eight awards to women highlighted"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="rec-h">
+    <div class="sec-head"><h2 id="rec-h">Records and oddities</h2></div>
+    <div class="records">
+      <div class="rec"><span class="yrs">1958 · 1980 &nbsp;/&nbsp; 2001 · 2022</span><h3>Twice in chemistry</h3><p>Frederick Sanger won for the structure of insulin and again for DNA sequencing. K. Barry Sharpless won for chiral catalysis and again for click chemistry.</p></div>
+      <div class="rec"><span class="yrs">1903 physics · 1911 chemistry</span><h3>Two different sciences</h3><p>Marie Curie is still the only person with Nobel Prizes in two sciences.</p></div>
+      <div class="rec"><span class="yrs">1954 chemistry · 1962 peace</span><h3>Two unshared prizes</h3><p>Linus Pauling won alone both times, for the chemical bond and for his campaign against nuclear weapons testing.</p></div>
+      <div class="rec"><span class="yrs">1938 · 1939</span><h3>Barred from accepting</h3><p>The Nazi government forced Richard Kuhn and Adolf Butenandt to decline. Both received their diplomas and medals after the war, but not the prize money.</p></div>
+      <div class="rec"><span class="yrs">1911 · 1935 &nbsp;/&nbsp; 2006</span><h3>Family prizes</h3><p>Marie Curie's daughter Irène Joliot-Curie shared the 1935 prize with her husband. Roger Kornberg (2006) is the son of Arthur Kornberg, a 1959 medicine laureate.</p></div>
+      <div class="rec"><span class="yrs">1916 · 1917 · 1919 · 1924 · 1933 · 1940–42</span><h3>Eight empty years</h3><p>No chemistry prize was given in eight years, most of them during the two world wars. The money went back into the Nobel funds.</p></div>
+    </div>
+  </section>
+
+  <footer class="band sources">
+    <div>
+      <h2>Data</h2>
+      <p>Laureates, birth dates, birthplaces, institutions, prize shares and citations come from the <a href="https://www.nobelprize.org/about/developer-zone-2/" target="_blank" rel="noopener">Nobel Prize API</a> (version 2.1, free to use under CC0), retrieved 3 October 2026.</p>
+      <p>Age is counted on 10 December of the award year, the day of the ceremony. Countries use present-day names. A laureate's country is that of the first institution listed for them at the time of the award.</p>
+    </div>
+    <div>
+      <h2>Our choices</h2>
+      <p>The six fields, the symbols and the short labels are editorial. We assigned them from each prize's official citation. Many prizes sit between fields, so treat the field charts as a rough guide.</p>
+      <p>The 2026 announcement time comes from the <a href="https://www.nobelprize.org/prizes/about/prize-announcement-dates" target="_blank" rel="noopener">official announcement schedule</a>. The time given is the earliest the prize will be announced.</p>
+    </div>
+    <div class="photo-note">
+      <h2>Photos</h2>
+      <p>Portraits come from Wikimedia Commons, found through each laureate's Wikidata entry, and are used under the licences listed below. We cropped them to squares and resized them, and made no other changes. No portrait on this page is AI-generated. Laureates without a freely licensed, usable portrait on Commons appear as dashed monogram tiles: <span id="no-photo-names"></span>.</p>
+      <details class="tview"><summary id="credits-sum">Photo credits</summary><ol class="credits" id="credits"></ol></details>
+    </div>
+    <p class="fineprint">An independent infographic. Not affiliated with or endorsed by the Nobel Foundation, Nobel Prize Outreach or the Royal Swedish Academy of Sciences. Nobel Prize® is a registered trademark of the Nobel Foundation.</p>
+  </footer>
+</main>
+<div id="tip" role="tooltip" hidden></div>
+
+<script>
+(() => {
+  'use strict';
+  const DATA = [{"y":1901,"sym":"Os","t":"Chemical dynamics & osmosis","fd":"phys","L":[{"id":"160","n":"Jacobus H. van 't Hoff","f":false,"by":1852,"age":49,"bc":"Netherlands","ac":"Germany","an":"Berlin University","s":"1","m":"in recognition of the extraordinary services he has rendered by the discovery of the laws of chemical dynamics and osmotic pressure in solutions"}]},{"y":1902,"sym":"Sp","t":"Sugar & purine synthesis","fd":"org","L":[{"id":"161","n":"Emil Fischer","f":false,"by":1852,"age":50,"bc":"Germany","ac":"Germany","an":"Berlin University","s":"1","m":"in recognition of the extraordinary services he has rendered by his work on sugar and purine syntheses"}]},{"y":1903,"sym":"Io","t":"Electrolytic dissociation","fd":"phys","L":[{"id":"162","n":"Svante Arrhenius","f":false,"by":1859,"age":44,"bc":"Sweden","ac":"Sweden","an":"Stockholm University","s":"1","m":"in recognition of the extraordinary services he has rendered to the advancement of chemistry by his electrolytic theory of dissociation"}]},{"y":1904,"sym":"Ng","t":"Discovery of the noble gases","fd":"inorg","L":[{"id":"163","n":"Sir William Ramsay","f":false,"by":1852,"age":52,"bc":"UK","ac":"UK","an":"University College","s":"1","m":"in recognition of his services in the discovery of the inert gaseous elements in air, and his determination of their place in the periodic system"}]},{"y":1905,"sym":"Dy","t":"Organic dyes","fd":"org","L":[{"id":"164","n":"Adolf von Baeyer","f":false,"by":1835,"age":70,"bc":"Germany","ac":"Germany","an":"Munich University","s":"1","m":"in recognition of his services in the advancement of organic chemistry and the chemical industry, through his work on organic dyes and hydroaromatic compounds"}]},{"y":1906,"sym":"F","t":"Isolation of fluorine","fd":"inorg","L":[{"id":"165","n":"Henri Moissan","f":false,"by":1852,"age":54,"bc":"France","ac":"France","an":"Sorbonne University","s":"1","m":"in recognition of the great services rendered by him in his investigation and isolation of the element fluorine, and for the adoption in the service of science of the electric furnace called after him"}]},{"y":1907,"sym":"Fm","t":"Cell-free fermentation","fd":"bio","L":[{"id":"166","n":"Eduard Buchner","f":false,"by":1860,"age":47,"bc":"Germany","ac":"Germany","an":"Landwirtschaftliche Hochschule (Agricultural College)","s":"1","m":"for his biochemical researches and his discovery of cell-free fermentation"}]},{"y":1908,"sym":"Rd","t":"Disintegration of the elements","fd":"nuc","L":[{"id":"167","n":"Ernest Rutherford","f":false,"by":1871,"age":37,"bc":"New Zealand","ac":"UK","an":"Victoria University","s":"1","m":"for his investigations into the disintegration of the elements, and the chemistry of radioactive substances"}]},{"y":1909,"sym":"Ct","t":"Catalysis & chemical equilibria","fd":"phys","L":[{"id":"168","n":"Wilhelm Ostwald","f":false,"by":1853,"age":56,"bc":"Latvia","ac":"Germany","an":"Leipzig University","s":"1","m":"in recognition of his work on catalysis and for his investigations into the fundamental principles governing chemical equilibria and rates of reaction"}]},{"y":1910,"sym":"Ac","t":"Alicyclic compounds","fd":"org","L":[{"id":"169","n":"Otto Wallach","f":false,"by":1847,"age":63,"bc":"Russia","ac":"Germany","an":"Goettingen University","s":"1","m":"in recognition of his services to organic chemistry and the chemical industry by his pioneer work in the field of alicyclic compounds"}]},{"y":1911,"sym":"Ra","t":"Radium & polonium","fd":"nuc","L":[{"id":"6","n":"Marie Curie","f":true,"by":1867,"age":44,"bc":"Poland","ac":"France","an":"Sorbonne University","s":"1","m":"in recognition of her services to the advancement of chemistry by the discovery of the elements radium and polonium, by the isolation of radium and the study of the nature and compounds of this remarkable element"}]},{"y":1912,"sym":"Mg","t":"Grignard reagents & hydrogenation","fd":"org","L":[{"id":"172","n":"Victor Grignard","f":false,"by":1871,"age":41,"bc":"France","ac":"France","an":"Nancy University","s":"1/2","m":"for the discovery of the so-called Grignard reagent, which in recent years has greatly advanced the progress of organic chemistry"},{"id":"173","n":"Paul Sabatier","f":false,"by":1854,"age":58,"bc":"France","ac":"France","an":"Toulouse University","s":"1/2","m":"for his method of hydrogenating organic compounds in the presence of finely disintegrated metals whereby the progress of organic chemistry has been greatly advanced in recent years"}]},{"y":1913,"sym":"Co","t":"Coordination chemistry","fd":"inorg","L":[{"id":"174","n":"Alfred Werner","f":false,"by":1866,"age":46,"bc":"France","ac":"Switzerland","an":"University of Zurich","s":"1","m":"in recognition of his work on the linkage of atoms in molecules by which he has thrown new light on earlier investigations and opened up new fields of research especially in inorganic chemistry"}]},{"y":1914,"sym":"Aw","t":"Precise atomic weights","fd":"meth","L":[{"id":"175","n":"Theodore W. Richards","f":false,"by":1868,"age":46,"bc":"USA","ac":"USA","an":"Harvard University","s":"1","m":"in recognition of his accurate determinations of the atomic weight of a large number of chemical elements"}]},{"y":1915,"sym":"Ch","t":"Chlorophyll & plant pigments","fd":"org","L":[{"id":"176","n":"Richard Willstätter","f":false,"by":1872,"age":43,"bc":"Germany","ac":"Germany","an":"Kaiser-Wilhelm-Institut (now Max-Planck Institut) für Chemie","s":"1","m":"for his researches on plant pigments, especially chlorophyll"}]},{"y":1916,"none":true},{"y":1917,"none":true},{"y":1918,"sym":"N","t":"Ammonia from its elements","fd":"inorg","L":[{"id":"177","n":"Fritz Haber","f":false,"by":1868,"age":50,"bc":"Poland","ac":"Germany","an":"Kaiser-Wilhelm-Institut (now Fritz-Haber-Institut) für physikalische Chemie und Electrochemie","s":"1","m":"for the synthesis of ammonia from its elements"}]},{"y":1919,"none":true},{"y":1920,"sym":"Th","t":"Thermochemistry","fd":"phys","L":[{"id":"178","n":"Walther Nernst","f":false,"by":1864,"age":56,"bc":"Poland","ac":"Germany","an":"Berlin University","s":"1","m":"in recognition of his work in thermochemistry"}]},{"y":1921,"sym":"Is","t":"Isotopes & radioactive substances","fd":"nuc","L":[{"id":"179","n":"Frederick Soddy","f":false,"by":1877,"age":44,"bc":"UK","ac":"UK","an":"University of Oxford","s":"1","m":"for his contributions to our knowledge of the chemistry of radioactive substances, and his investigations into the origin and nature of isotopes"}]},{"y":1922,"sym":"Ms","t":"Mass spectrograph & isotopes","fd":"meth","L":[{"id":"180","n":"Francis W. Aston","f":false,"by":1877,"age":45,"bc":"UK","ac":"UK","an":"University of Cambridge","s":"1","m":"for his discovery, by means of his mass spectrograph, of isotopes, in a large number of non-radioactive elements, and for his enunciation of the whole-number rule"}]},{"y":1923,"sym":"Ma","t":"Organic microanalysis","fd":"meth","L":[{"id":"181","n":"Fritz Pregl","f":false,"by":1869,"age":54,"bc":"Slovenia","ac":"Austria","an":"Graz University","s":"1","m":"for his invention of the method of micro-analysis of organic substances"}]},{"y":1924,"none":true},{"y":1925,"sym":"Cd","t":"Colloid solutions","fd":"phys","L":[{"id":"182","n":"Richard Zsigmondy","f":false,"by":1865,"age":60,"bc":"Austria","ac":"Germany","an":"Goettingen University","s":"1","m":"for his demonstration of the heterogenous nature of colloid solutions and for the methods he used, which have since become fundamental in modern colloid chemistry"}]},{"y":1926,"sym":"Uc","t":"Disperse systems","fd":"phys","L":[{"id":"183","n":"The Svedberg","f":false,"by":1884,"age":42,"bc":"Sweden","ac":"Sweden","an":"Uppsala University","s":"1","m":"for his work on disperse systems"}]},{"y":1927,"sym":"Ba","t":"Bile acids","fd":"org","L":[{"id":"184","n":"Heinrich Wieland","f":false,"by":1877,"age":50,"bc":"Germany","ac":"Germany","an":"Munich University","s":"1","m":"for his investigations of the constitution of the bile acids and related substances"}]},{"y":1928,"sym":"St","t":"Sterols & vitamins","fd":"org","L":[{"id":"185","n":"Adolf Windaus","f":false,"by":1876,"age":51,"bc":"Germany","ac":"Germany","an":"Goettingen University","s":"1","m":"for the services rendered through his research into the constitution of the sterols and their connection with the vitamins"}]},{"y":1929,"sym":"Ez","t":"Sugar fermentation & enzymes","fd":"bio","L":[{"id":"186","n":"Arthur Harden","f":false,"by":1865,"age":64,"bc":"UK","ac":"UK","an":"London University","s":"1/2","m":"for their investigations on the fermentation of sugar and fermentative enzymes"},{"id":"187","n":"Hans von Euler-Chelpin","f":false,"by":1873,"age":56,"bc":"Germany","ac":"Sweden","an":"Stockholm University","s":"1/2","m":"for their investigations on the fermentation of sugar and fermentative enzymes"}]},{"y":1930,"sym":"Fe","t":"Haemin & chlorophyll","fd":"org","L":[{"id":"188","n":"Hans Fischer","f":false,"by":1881,"age":49,"bc":"Germany","ac":"Germany","an":"Technische Hochschule (Institute of Technology)","s":"1","m":"for his researches into the constitution of haemin and chlorophyll and especially for his synthesis of haemin"}]},{"y":1931,"sym":"Hp","t":"High-pressure chemistry","fd":"inorg","L":[{"id":"189","n":"Carl Bosch","f":false,"by":1874,"age":57,"bc":"Germany","ac":"Germany","an":"University of Heidelberg","s":"1/2","m":"in recognition of their contributions to the invention and development of chemical high pressure methods"},{"id":"190","n":"Friedrich Bergius","f":false,"by":1884,"age":47,"bc":"Poland","ac":"Germany","an":"University of Heidelberg","s":"1/2","m":"in recognition of their contributions to the invention and development of chemical high pressure methods"}]},{"y":1932,"sym":"Sf","t":"Surface chemistry","fd":"phys","L":[{"id":"191","n":"Irving Langmuir","f":false,"by":1881,"age":51,"bc":"USA","ac":"USA","an":"General Electric Company","s":"1","m":"for his discoveries and investigations in surface chemistry"}]},{"y":1933,"none":true},{"y":1934,"sym":"D","t":"Heavy hydrogen","fd":"nuc","L":[{"id":"192","n":"Harold C. Urey","f":false,"by":1893,"age":41,"bc":"USA","ac":"USA","an":"Columbia University","s":"1","m":"for his discovery of heavy hydrogen"}]},{"y":1935,"sym":"Ar","t":"Artificial radioactivity","fd":"nuc","L":[{"id":"193","n":"Frédéric Joliot","f":false,"by":1900,"age":35,"bc":"France","ac":"France","an":"Institut du Radium","s":"1/2","m":"in recognition of their synthesis of new radioactive elements"},{"id":"194","n":"Irène Joliot-Curie","f":true,"by":1897,"age":38,"bc":"France","ac":"France","an":"Institut du Radium","s":"1/2","m":"in recognition of their synthesis of new radioactive elements"}]},{"y":1936,"sym":"Dp","t":"Dipole moments & molecular structure","fd":"phys","L":[{"id":"195","n":"Peter Debye","f":false,"by":1884,"age":52,"bc":"Netherlands","ac":"Germany","an":"Berlin University","s":"1","m":"for his contributions to our knowledge of molecular structure through his investigations on dipole moments and on the diffraction of X-rays and electrons in gases"}]},{"y":1937,"sym":"Vc","t":"Carbohydrates & vitamins","fd":"org","L":[{"id":"196","n":"Norman Haworth","f":false,"by":1883,"age":54,"bc":"UK","ac":"UK","an":"Birmingham University","s":"1/2","m":"for his investigations on carbohydrates and vitamin C"},{"id":"197","n":"Paul Karrer","f":false,"by":1889,"age":48,"bc":"Russia","ac":"Switzerland","an":"University of Zurich","s":"1/2","m":"for his investigations on carotenoids, flavins and vitamins A and B2"}]},{"y":1938,"sym":"Cv","t":"Carotenoids & vitamins","fd":"org","L":[{"id":"198","n":"Richard Kuhn","f":false,"by":1900,"age":38,"bc":"Austria","ac":"Germany","an":"Kaiser-Wilhelm-Institut (now Max-Planck Institut) für Medizinische Forschung","s":"1","m":"for his work on carotenoids and vitamins"}]},{"y":1939,"sym":"Te","t":"Terpenes & sex hormones","fd":"org","L":[{"id":"199","n":"Adolf Butenandt","f":false,"by":1903,"age":36,"bc":"Germany","ac":"Germany","an":"Kaiser-Wilhelm-Institut (now Max-Planck-Institut) für Biochemie","s":"1/2","m":"for his work on sex hormones"},{"id":"200","n":"Leopold Ruzicka","f":false,"by":1887,"age":52,"bc":"Croatia","ac":"Switzerland","an":"Eidgenössische Technische Hochschule (Swiss Federal Institute of Technology)","s":"1/2","m":"for his work on polymethylenes and higher terpenes"}]},{"y":1940,"none":true},{"y":1941,"none":true},{"y":1942,"none":true},{"y":1943,"sym":"Tr","t":"Isotopes as tracers","fd":"nuc","L":[{"id":"201","n":"George de Hevesy","f":false,"by":1885,"age":58,"bc":"Hungary","ac":"Sweden","an":"Stockholm University","s":"1","m":"for his work on the use of isotopes as tracers in the study of chemical processes"}]},{"y":1944,"sym":"Fi","t":"Nuclear fission","fd":"nuc","L":[{"id":"202","n":"Otto Hahn","f":false,"by":1879,"age":65,"bc":"Germany","ac":"Germany","an":"Kaiser-Wilhelm-Institut (now Max-Planck Institut) für Chemie","s":"1","m":"for his discovery of the fission of heavy nuclei"}]},{"y":1945,"sym":"Ag","t":"Agricultural & nutrition chemistry","fd":"bio","L":[{"id":"203","n":"Artturi Virtanen","f":false,"by":1895,"age":50,"bc":"Finland","ac":"Finland","an":"University of Helsinki","s":"1","m":"for his research and inventions in agricultural and nutrition chemistry, especially for his fodder preservation method"}]},{"y":1946,"sym":"En","t":"Pure enzymes & virus proteins","fd":"bio","L":[{"id":"204","n":"James B. Sumner","f":false,"by":1887,"age":59,"bc":"USA","ac":"USA","an":"Cornell University","s":"1/2","m":"for his discovery that enzymes can be crystallized"},{"id":"205","n":"John H. Northrop","f":false,"by":1891,"age":55,"bc":"USA","ac":"USA","an":"Rockefeller Institute for Medical Research","s":"1/4","m":"for their preparation of enzymes and virus proteins in a pure form"},{"id":"206","n":"Wendell M. Stanley","f":false,"by":1904,"age":42,"bc":"USA","ac":"USA","an":"Rockefeller Institute for Medical Research","s":"1/4","m":"for their preparation of enzymes and virus proteins in a pure form"}]},{"y":1947,"sym":"Al","t":"Alkaloids & plant products","fd":"org","L":[{"id":"207","n":"Sir Robert Robinson","f":false,"by":1886,"age":61,"bc":"UK","ac":"UK","an":"University of Oxford","s":"1","m":"for his investigations on plant products of biological importance, especially the alkaloids"}]},{"y":1948,"sym":"Ep","t":"Electrophoresis","fd":"meth","L":[{"id":"208","n":"Arne Tiselius","f":false,"by":1902,"age":46,"bc":"Sweden","ac":"Sweden","an":"Uppsala University","s":"1","m":"for his research on electrophoresis and adsorption analysis, especially for his discoveries concerning the complex nature of the serum proteins"}]},{"y":1949,"sym":"Lt","t":"Low-temperature thermodynamics","fd":"phys","L":[{"id":"209","n":"William F. Giauque","f":false,"by":1895,"age":54,"bc":"Canada","ac":"USA","an":"University of California","s":"1","m":"for his contributions in the field of chemical thermodynamics, particularly concerning the behaviour of substances at extremely low temperatures"}]},{"y":1950,"sym":"Da","t":"Diene synthesis","fd":"org","L":[{"id":"210","n":"Otto Diels","f":false,"by":1876,"age":74,"bc":"Germany","ac":"Germany","an":"Kiel University","s":"1/2","m":"for their discovery and development of the diene synthesis"},{"id":"211","n":"Kurt Alder","f":false,"by":1902,"age":48,"bc":"Poland","ac":"Germany","an":"Cologne University","s":"1/2","m":"for their discovery and development of the diene synthesis"}]},{"y":1951,"sym":"Pu","t":"Transuranium elements","fd":"nuc","L":[{"id":"212","n":"Edwin M. McMillan","f":false,"by":1907,"age":44,"bc":"USA","ac":"USA","an":"University of California","s":"1/2","m":"for their discoveries in the chemistry of the transuranium elements"},{"id":"213","n":"Glenn T. Seaborg","f":false,"by":1912,"age":39,"bc":"USA","ac":"USA","an":"University of California","s":"1/2","m":"for their discoveries in the chemistry of the transuranium elements"}]},{"y":1952,"sym":"Pc","t":"Partition chromatography","fd":"meth","L":[{"id":"214","n":"Archer J.P. Martin","f":false,"by":1910,"age":42,"bc":"UK","ac":"UK","an":"National Institute for Medical Research","s":"1/2","m":"for their invention of partition chromatography"},{"id":"215","n":"Richard L.M. Synge","f":false,"by":1914,"age":38,"bc":"UK","ac":"UK","an":"Rowett Research Institute","s":"1/2","m":"for their invention of partition chromatography"}]},{"y":1953,"sym":"Mc","t":"Macromolecules","fd":"inorg","L":[{"id":"216","n":"Hermann Staudinger","f":false,"by":1881,"age":72,"bc":"Germany","ac":"Germany","an":"University of Freiburg","s":"1","m":"for his discoveries in the field of macromolecular chemistry"}]},{"y":1954,"sym":"Bd","t":"The nature of the chemical bond","fd":"phys","L":[{"id":"217","n":"Linus Pauling","f":false,"by":1901,"age":53,"bc":"USA","ac":"USA","an":"California Institute of Technology (Caltech)","s":"1","m":"for his research into the nature of the chemical bond and its application to the elucidation of the structure of complex substances"}]},{"y":1955,"sym":"S","t":"First peptide hormone synthesis","fd":"bio","L":[{"id":"218","n":"Vincent du Vigneaud","f":false,"by":1901,"age":54,"bc":"USA","ac":"USA","an":"Cornell University","s":"1","m":"for his work on biochemically important sulphur compounds, especially for the first synthesis of a polypeptide hormone"}]},{"y":1956,"sym":"Rm","t":"Reaction mechanisms","fd":"phys","L":[{"id":"219","n":"Sir Cyril Hinshelwood","f":false,"by":1897,"age":59,"bc":"UK","ac":"UK","an":"University of Oxford","s":"1/2","m":"for their researches into the mechanism of chemical reactions"},{"id":"220","n":"Nikolay Semenov","f":false,"by":1896,"age":60,"bc":"Russia","ac":"Russia","an":"Institute for Chemical Physics of the Academy of Sciences of the USSR","s":"1/2","m":"for their researches into the mechanism of chemical reactions"}]},{"y":1957,"sym":"Nu","t":"Nucleotides & coenzymes","fd":"bio","L":[{"id":"221","n":"Lord Todd","f":false,"by":1907,"age":50,"bc":"UK","ac":"UK","an":"University of Cambridge","s":"1","m":"for his work on nucleotides and nucleotide co-enzymes"}]},{"y":1958,"sym":"In","t":"Protein structure: insulin","fd":"bio","L":[{"id":"222","n":"Frederick Sanger","f":false,"by":1918,"age":40,"bc":"UK","ac":"UK","an":"University of Cambridge","s":"1","m":"for his work on the structure of proteins, especially that of insulin"}]},{"y":1959,"sym":"Pg","t":"Polarography","fd":"meth","L":[{"id":"223","n":"Jaroslav Heyrovsky","f":false,"by":1890,"age":68,"bc":"Czech Republic","ac":"Czech Republic","an":"Polarographic Institute of the Czechoslovak Academy of Science","s":"1","m":"for his discovery and development of the polarographic methods of analysis"}]},{"y":1960,"sym":"¹⁴C","t":"Radiocarbon dating","fd":"nuc","L":[{"id":"224","n":"Willard F. Libby","f":false,"by":1908,"age":51,"bc":"USA","ac":"USA","an":"University of California","s":"1","m":"for his method to use carbon-14 for age determination in archaeology, geology, geophysics, and other branches of science"}]},{"y":1961,"sym":"Ps","t":"Carbon dioxide uptake in plants","fd":"bio","L":[{"id":"225","n":"Melvin Calvin","f":false,"by":1911,"age":50,"bc":"USA","ac":"USA","an":"University of California","s":"1","m":"for his research on the carbon dioxide assimilation in plants"}]},{"y":1962,"sym":"Hb","t":"Structures of globular proteins","fd":"bio","L":[{"id":"226","n":"Max F. Perutz","f":false,"by":1914,"age":48,"bc":"Austria","ac":"UK","an":"MRC Laboratory of Molecular Biology","s":"1/2","m":"for their studies of the structures of globular proteins"},{"id":"227","n":"John C. Kendrew","f":false,"by":1917,"age":45,"bc":"UK","ac":"UK","an":"MRC Laboratory of Molecular Biology","s":"1/2","m":"for their studies of the structures of globular proteins"}]},{"y":1963,"sym":"Pp","t":"High polymers","fd":"inorg","L":[{"id":"228","n":"Karl Ziegler","f":false,"by":1898,"age":65,"bc":"Germany","ac":"Germany","an":"Max-Planck-Institut für Kohlenforschung","s":"1/2","m":"for their discoveries in the field of the chemistry and technology of high polymers"},{"id":"229","n":"Giulio Natta","f":false,"by":1903,"age":60,"bc":"Italy","ac":"Italy","an":"Institute of Technology","s":"1/2","m":"for their discoveries in the field of the chemistry and technology of high polymers"}]},{"y":1964,"sym":"Xr","t":"X-ray structures of biomolecules","fd":"meth","L":[{"id":"230","n":"Dorothy Crowfoot Hodgkin","f":true,"by":1910,"age":54,"bc":"Egypt","ac":"UK","an":"University of Oxford, Royal Society","s":"1","m":"for her determinations by X-ray techniques of the structures of important biochemical substances"}]},{"y":1965,"sym":"Sy","t":"The art of organic synthesis","fd":"org","L":[{"id":"231","n":"Robert B. Woodward","f":false,"by":1917,"age":48,"bc":"USA","ac":"USA","an":"Harvard University","s":"1","m":"for his outstanding achievements in the art of organic synthesis"}]},{"y":1966,"sym":"Mo","t":"Molecular orbitals","fd":"phys","L":[{"id":"232","n":"Robert S. Mulliken","f":false,"by":1896,"age":70,"bc":"USA","ac":"USA","an":"University of Chicago","s":"1","m":"for his fundamental work concerning chemical bonds and the electronic structure of molecules by the molecular orbital method"}]},{"y":1967,"sym":"Fr","t":"Extremely fast reactions","fd":"phys","L":[{"id":"233","n":"Manfred Eigen","f":false,"by":1927,"age":40,"bc":"Germany","ac":"Germany","an":"Max-Planck-Institut für Physikalische Chemie","s":"1/2","m":"for their studies of extremely fast chemical reactions, effected by disturbing the equilibrium by means of very short pulses of energy"},{"id":"234","n":"Ronald G.W. Norrish","f":false,"by":1897,"age":70,"bc":"UK","ac":"UK","an":"Institute of Physical Chemistry","s":"1/4","m":"for their studies of extremely fast chemical reactions, effected by disturbing the equilibrium by means of very short pulses of energy"},{"id":"235","n":"George Porter","f":false,"by":1920,"age":47,"bc":"UK","ac":"UK","an":"Royal Institution of Great Britain","s":"1/4","m":"for their studies of extremely fast chemical reactions, effected by disturbing the equilibrium by means of very short pulses of energy"}]},{"y":1968,"sym":"Ir","t":"Irreversible thermodynamics","fd":"phys","L":[{"id":"236","n":"Lars Onsager","f":false,"by":1903,"age":65,"bc":"Norway","ac":"USA","an":"Yale University","s":"1","m":"for the discovery of the reciprocal relations bearing his name, which are fundamental for the thermodynamics of irreversible processes"}]},{"y":1969,"sym":"Cf","t":"Conformational analysis","fd":"org","L":[{"id":"237","n":"Derek Barton","f":false,"by":1918,"age":51,"bc":"UK","ac":"UK","an":"Imperial College","s":"1/2","m":"for their contributions to the development of the concept of conformation and its application in chemistry"},{"id":"238","n":"Odd Hassel","f":false,"by":1897,"age":72,"bc":"Norway","ac":"Norway","an":"University of Oslo","s":"1/2","m":"for their contributions to the development of the concept of conformation and its application in chemistry"}]},{"y":1970,"sym":"Sn","t":"Sugar nucleotides","fd":"bio","L":[{"id":"239","n":"Luis Leloir","f":false,"by":1906,"age":64,"bc":"France","ac":"Argentina","an":"Institute for Biochemical Research","s":"1","m":"for his discovery of sugar nucleotides and their role in the biosynthesis of carbohydrates"}]},{"y":1971,"sym":"Es","t":"Electronic structure of molecules","fd":"phys","L":[{"id":"240","n":"Gerhard Herzberg","f":false,"by":1904,"age":66,"bc":"Germany","ac":"Canada","an":"National Research Council of Canada","s":"1","m":"for his contributions to the knowledge of electronic structure and geometry of molecules, particularly free radicals"}]},{"y":1972,"sym":"Rn","t":"Ribonuclease","fd":"bio","L":[{"id":"241","n":"Christian Anfinsen","f":false,"by":1916,"age":56,"bc":"USA","ac":"USA","an":"National Institutes of Health","s":"1/2","m":"for his work on ribonuclease, especially concerning the connection between the amino acid sequence and the biologically active conformation"},{"id":"242","n":"Stanford Moore","f":false,"by":1913,"age":59,"bc":"USA","ac":"USA","an":"Rockefeller University","s":"1/4","m":"for their contribution to the understanding of the connection between chemical structure and catalytic activity of the active centre of the ribonuclease molecule"},{"id":"243","n":"William H. Stein","f":false,"by":1911,"age":61,"bc":"USA","ac":"USA","an":"Rockefeller University","s":"1/4","m":"for their contribution to the understanding of the connection between chemical structure and catalytic activity of the active centre of the ribonuclease molecule"}]},{"y":1973,"sym":"Fc","t":"Sandwich compounds","fd":"inorg","L":[{"id":"244","n":"Ernst Otto Fischer","f":false,"by":1918,"age":55,"bc":"Germany","ac":"Germany","an":"Technical University","s":"1/2","m":"for their pioneering work, performed independently, on the chemistry of the organometallic, so called sandwich compounds"},{"id":"245","n":"Geoffrey Wilkinson","f":false,"by":1921,"age":52,"bc":"UK","ac":"UK","an":"Imperial College","s":"1/2","m":"for their pioneering work, performed independently, on the chemistry of the organometallic, so called sandwich compounds"}]},{"y":1974,"sym":"Pm","t":"Physics of polymer molecules","fd":"inorg","L":[{"id":"246","n":"Paul J. Flory","f":false,"by":1910,"age":64,"bc":"USA","ac":"USA","an":"Stanford University","s":"1","m":"for his fundamental achievements, both theoretical and experimental, in the physical chemistry of the macromolecules"}]},{"y":1975,"sym":"Sc","t":"Stereochemistry","fd":"org","L":[{"id":"247","n":"John Cornforth","f":false,"by":1917,"age":58,"bc":"Australia","ac":"UK","an":"University of Sussex","s":"1/2","m":"for his work on the stereochemistry of enzyme-catalyzed reactions"},{"id":"248","n":"Vladimir Prelog","f":false,"by":1906,"age":69,"bc":"Bosnia and Herzegovina","ac":"Switzerland","an":"Eidgenössische Technische Hochschule (Swiss Federal Institute of Technology)","s":"1/2","m":"for his research into the stereochemistry of organic molecules and reactions"}]},{"y":1976,"sym":"B","t":"Boranes & chemical bonding","fd":"inorg","L":[{"id":"249","n":"William Lipscomb","f":false,"by":1919,"age":57,"bc":"USA","ac":"USA","an":"Harvard University","s":"1","m":"for his studies on the structure of boranes illuminating problems of chemical bonding"}]},{"y":1977,"sym":"Ds","t":"Dissipative structures","fd":"phys","L":[{"id":"250","n":"Ilya Prigogine","f":false,"by":1917,"age":60,"bc":"Russia","ac":"Belgium","an":"Université Libre de Bruxelles","s":"1","m":"for his contributions to non-equilibrium thermodynamics, particularly the theory of dissipative structures"}]},{"y":1978,"sym":"Cm","t":"Chemiosmotic theory","fd":"bio","L":[{"id":"251","n":"Peter Mitchell","f":false,"by":1920,"age":58,"bc":"UK","ac":"UK","an":"Glynn Research Laboratories","s":"1","m":"for his contribution to the understanding of biological energy transfer through the formulation of the chemiosmotic theory"}]},{"y":1979,"sym":"Bp","t":"Boron & phosphorus reagents","fd":"org","L":[{"id":"252","n":"Herbert C. Brown","f":false,"by":1912,"age":67,"bc":"UK","ac":"USA","an":"Purdue University","s":"1/2","m":"for their development of the use of boron- and phosphorus-containing compounds, respectively, into important reagents in organic synthesis"},{"id":"253","n":"Georg Wittig","f":false,"by":1897,"age":82,"bc":"Germany","ac":"Germany","an":"University of Heidelberg","s":"1/2","m":"for their development of the use of boron- and phosphorus-containing compounds, respectively, into important reagents in organic synthesis"}]},{"y":1980,"sym":"Dn","t":"Recombinant DNA & sequencing","fd":"bio","L":[{"id":"254","n":"Paul Berg","f":false,"by":1926,"age":54,"bc":"USA","ac":"USA","an":"Stanford University","s":"1/2","m":"for his fundamental studies of the biochemistry of nucleic acids, with particular regard to recombinant-DNA"},{"id":"255","n":"Walter Gilbert","f":false,"by":1932,"age":48,"bc":"USA","ac":"USA","an":"Harvard University, Biological Laboratories","s":"1/4","m":"for their contributions concerning the determination of base sequences in nucleic acids"},{"id":"222","n":"Frederick Sanger","f":false,"by":1918,"age":62,"bc":"UK","ac":"UK","an":"MRC Laboratory of Molecular Biology","s":"1/4","m":"for their contributions concerning the determination of base sequences in nucleic acids"}]},{"y":1981,"sym":"Fo","t":"Theories of reaction pathways","fd":"phys","L":[{"id":"257","n":"Kenichi Fukui","f":false,"by":1918,"age":63,"bc":"Japan","ac":"Japan","an":"Kyoto University","s":"1/2","m":"for their theories, developed independently, concerning the course of chemical reactions"},{"id":"258","n":"Roald Hoffmann","f":false,"by":1937,"age":44,"bc":"Ukraine","ac":"USA","an":"Cornell University","s":"1/2","m":"for their theories, developed independently, concerning the course of chemical reactions"}]},{"y":1982,"sym":"Em","t":"Crystallographic electron microscopy","fd":"meth","L":[{"id":"259","n":"Aaron Klug","f":false,"by":1926,"age":56,"bc":"Lithuania","ac":"UK","an":"MRC Laboratory of Molecular Biology","s":"1","m":"for his development of crystallographic electron microscopy and his structural elucidation of biologically important nucleic acid-protein complexes"}]},{"y":1983,"sym":"Et","t":"Electron transfer in metal complexes","fd":"inorg","L":[{"id":"260","n":"Henry Taube","f":false,"by":1915,"age":68,"bc":"Canada","ac":"USA","an":"Stanford University","s":"1","m":"for his work on the mechanisms of electron transfer reactions, especially in metal complexes"}]},{"y":1984,"sym":"Ss","t":"Solid-phase synthesis","fd":"org","L":[{"id":"261","n":"Bruce Merrifield","f":false,"by":1921,"age":63,"bc":"USA","ac":"USA","an":"Rockefeller University","s":"1","m":"for his development of methodology for chemical synthesis on a solid matrix"}]},{"y":1985,"sym":"Dm","t":"Direct methods for crystal structures","fd":"meth","L":[{"id":"262","n":"Herbert A. Hauptman","f":false,"by":1917,"age":68,"bc":"USA","ac":"USA","an":"The Medical Foundation of Buffalo","s":"1/2","m":"for their outstanding achievements in the development of direct methods for the determination of crystal structures"},{"id":"263","n":"Jerome Karle","f":false,"by":1918,"age":67,"bc":"USA","ac":"USA","an":"US Naval Research Laboratory","s":"1/2","m":"for their outstanding achievements in the development of direct methods for the determination of crystal structures"}]},{"y":1986,"sym":"Mb","t":"Reaction dynamics","fd":"phys","L":[{"id":"264","n":"Dudley R. Herschbach","f":false,"by":1932,"age":54,"bc":"USA","ac":"USA","an":"Harvard University","s":"1/3","m":"for their contributions concerning the dynamics of chemical elementary processes"},{"id":"265","n":"Yuan T. Lee","f":false,"by":1936,"age":50,"bc":"Taiwan","ac":"USA","an":"University of California","s":"1/3","m":"for their contributions concerning the dynamics of chemical elementary processes"},{"id":"266","n":"John C. Polanyi","f":false,"by":1929,"age":57,"bc":"Germany","ac":"Canada","an":"University of Toronto","s":"1/3","m":"for their contributions concerning the dynamics of chemical elementary processes"}]},{"y":1987,"sym":"Hg","t":"Host–guest chemistry","fd":"org","L":[{"id":"267","n":"Donald J. Cram","f":false,"by":1919,"age":68,"bc":"USA","ac":"USA","an":"University of California","s":"1/3","m":"for their development and use of molecules with structure-specific interactions of high selectivity"},{"id":"268","n":"Jean-Marie Lehn","f":false,"by":1939,"age":48,"bc":"France","ac":"France","an":"Université Louis Pasteur","s":"1/3","m":"for their development and use of molecules with structure-specific interactions of high selectivity"},{"id":"269","n":"Charles J. Pedersen","f":false,"by":1904,"age":83,"bc":"South Korea","ac":"USA","an":"Du Pont","s":"1/3","m":"for their development and use of molecules with structure-specific interactions of high selectivity"}]},{"y":1988,"sym":"Rc","t":"Photosynthetic reaction centre","fd":"bio","L":[{"id":"270","n":"Johann Deisenhofer","f":false,"by":1943,"age":45,"bc":"Germany","ac":"USA","an":"University of Texas Southwestern Medical Center at Dallas","s":"1/3","m":"for the determination of the three-dimensional structure of a photosynthetic reaction centre"},{"id":"271","n":"Robert Huber","f":false,"by":1937,"age":51,"bc":"Germany","ac":"Germany","an":"Max-Planck-Institut für Biochemie","s":"1/3","m":"for the determination of the three-dimensional structure of a photosynthetic reaction centre"},{"id":"272","n":"Hartmut Michel","f":false,"by":1948,"age":40,"bc":"Germany","ac":"Germany","an":"Max-Planck-Institut für Biophysik","s":"1/3","m":"for the determination of the three-dimensional structure of a photosynthetic reaction centre"}]},{"y":1989,"sym":"Rz","t":"Catalytic RNA","fd":"bio","L":[{"id":"273","n":"Sidney Altman","f":false,"by":1939,"age":50,"bc":"Canada","ac":"USA","an":"Yale University","s":"1/2","m":"for their discovery of catalytic properties of RNA"},{"id":"274","n":"Thomas R. Cech","f":false,"by":1947,"age":42,"bc":"USA","ac":"USA","an":"University of Colorado","s":"1/2","m":"for their discovery of catalytic properties of RNA"}]},{"y":1990,"sym":"Rs","t":"Theory & method of organic synthesis","fd":"org","L":[{"id":"275","n":"Elias James Corey","f":false,"by":1928,"age":62,"bc":"USA","ac":"USA","an":"Harvard University","s":"1","m":"for his development of the theory and methodology of organic synthesis"}]},{"y":1991,"sym":"Nm","t":"High-resolution NMR","fd":"meth","L":[{"id":"276","n":"Richard R. Ernst","f":false,"by":1933,"age":58,"bc":"Switzerland","ac":"Switzerland","an":"Eidgenössische Technische Hochschule (Swiss Federal Institute of Technology)","s":"1","m":"for his contributions to the development of the methodology of high resolution nuclear magnetic resonance (NMR) spectroscopy"}]},{"y":1992,"sym":"Mr","t":"Electron transfer theory","fd":"phys","L":[{"id":"277","n":"Rudolph A. Marcus","f":false,"by":1923,"age":69,"bc":"Canada","ac":"USA","an":"California Institute of Technology (Caltech)","s":"1","m":"for his contributions to the theory of electron transfer reactions in chemical systems"}]},{"y":1993,"sym":"Pr","t":"PCR & site-directed mutagenesis","fd":"bio","L":[{"id":"278","n":"Kary B. Mullis","f":false,"by":1944,"age":48,"bc":"USA","ac":"USA","an":null,"s":"1/2","m":"for his invention of the polymerase chain reaction (PCR) method"},{"id":"279","n":"Michael Smith","f":false,"by":1932,"age":61,"bc":"UK","ac":"Canada","an":"University of British Columbia","s":"1/2","m":"for his fundamental contributions to the establishment of oligonucleotide-based, site-directed mutagenesis and its development for protein studies"}]},{"y":1994,"sym":"Cb","t":"Carbocations","fd":"org","L":[{"id":"280","n":"George A. Olah","f":false,"by":1927,"age":67,"bc":"Hungary","ac":"USA","an":"University of Southern California","s":"1","m":"for his contribution to carbocation chemistry"}]},{"y":1995,"sym":"O₃","t":"Atmospheric ozone","fd":"phys","L":[{"id":"281","n":"Paul J. Crutzen","f":false,"by":1933,"age":62,"bc":"Netherlands","ac":"Germany","an":"Max-Planck-Institut für Chemie","s":"1/3","m":"for their work in atmospheric chemistry, particularly concerning the formation and decomposition of ozone"},{"id":"282","n":"Mario J. Molina","f":false,"by":1943,"age":52,"bc":"Mexico","ac":"USA","an":"Massachusetts Institute of Technology (MIT)","s":"1/3","m":"for their work in atmospheric chemistry, particularly concerning the formation and decomposition of ozone"},{"id":"283","n":"F. Sherwood Rowland","f":false,"by":1927,"age":68,"bc":"USA","ac":"USA","an":"University of California","s":"1/3","m":"for their work in atmospheric chemistry, particularly concerning the formation and decomposition of ozone"}]},{"y":1996,"sym":"C₆₀","t":"Fullerenes","fd":"inorg","L":[{"id":"284","n":"Robert F. Curl Jr.","f":false,"by":1933,"age":63,"bc":"USA","ac":"USA","an":"Rice University","s":"1/3","m":"for their discovery of fullerenes"},{"id":"285","n":"Sir Harold Kroto","f":false,"by":1939,"age":57,"bc":"UK","ac":"UK","an":"University of Sussex","s":"1/3","m":"for their discovery of fullerenes"},{"id":"286","n":"Richard E. Smalley","f":false,"by":1943,"age":53,"bc":"USA","ac":"USA","an":"Rice University","s":"1/3","m":"for their discovery of fullerenes"}]},{"y":1997,"sym":"At","t":"ATP synthesis & ion pumps","fd":"bio","L":[{"id":"287","n":"Paul D. Boyer","f":false,"by":1918,"age":79,"bc":"USA","ac":"USA","an":"University of California","s":"1/4","m":"for their elucidation of the enzymatic mechanism underlying the synthesis of adenosine triphosphate (ATP)"},{"id":"288","n":"John E. Walker","f":false,"by":1941,"age":56,"bc":"UK","ac":"UK","an":"MRC Laboratory of Molecular Biology","s":"1/4","m":"for their elucidation of the enzymatic mechanism underlying the synthesis of adenosine triphosphate (ATP)"},{"id":"289","n":"Jens C. Skou","f":false,"by":1918,"age":79,"bc":"Denmark","ac":"Denmark","an":"Aarhus University","s":"1/2","m":"for the first discovery of an ion-transporting enzyme, Na+, K+ -ATPase"}]},{"y":1998,"sym":"Df","t":"Computational quantum chemistry","fd":"phys","L":[{"id":"290","n":"Walter Kohn","f":false,"by":1923,"age":75,"bc":"Austria","ac":"USA","an":"University of California","s":"1/2","m":"for his development of the density-functional theory"},{"id":"291","n":"John Pople","f":false,"by":1925,"age":73,"bc":"UK","ac":"USA","an":"Northwestern University","s":"1/2","m":"for his development of computational methods in quantum chemistry"}]},{"y":1999,"sym":"Fs","t":"Femtochemistry","fd":"phys","L":[{"id":"292","n":"Ahmed Zewail","f":false,"by":1946,"age":53,"bc":"Egypt","ac":"USA","an":"California Institute of Technology (Caltech)","s":"1","m":"for his studies of the transition states of chemical reactions using femtosecond spectroscopy"}]},{"y":2000,"sym":"Cp","t":"Conductive polymers","fd":"inorg","L":[{"id":"729","n":"Alan Heeger","f":false,"by":1936,"age":64,"bc":"USA","ac":"USA","an":"University of California","s":"1/3","m":"for the discovery and development of conductive polymers"},{"id":"730","n":"Alan MacDiarmid","f":false,"by":1927,"age":73,"bc":"New Zealand","ac":"USA","an":"University of Pennsylvania","s":"1/3","m":"for the discovery and development of conductive polymers"},{"id":"731","n":"Hideki Shirakawa","f":false,"by":1936,"age":64,"bc":"Japan","ac":"Japan","an":"University of Tsukuba","s":"1/3","m":"for the discovery and development of conductive polymers"}]},{"y":2001,"sym":"Cc","t":"Chiral catalysis","fd":"org","L":[{"id":"741","n":"William Knowles","f":false,"by":1917,"age":84,"bc":"USA","ac":"USA","an":null,"s":"1/4","m":"for their work on chirally catalysed hydrogenation reactions"},{"id":"742","n":"Ryoji Noyori","f":false,"by":1938,"age":63,"bc":"Japan","ac":"Japan","an":"Nagoya University","s":"1/4","m":"for their work on chirally catalysed hydrogenation reactions"},{"id":"743","n":"K. Barry Sharpless","f":false,"by":1941,"age":60,"bc":"USA","ac":"USA","an":"The Scripps Research Institute","s":"1/2","m":"for his work on chirally catalysed oxidation reactions"}]},{"y":2002,"sym":"Bm","t":"Analysing biological macromolecules","fd":"meth","L":[{"id":"756","n":"John B. Fenn","f":false,"by":1917,"age":85,"bc":"USA","ac":"USA","an":"Virginia Commonwealth University","s":"1/4","m":"for their development of soft desorption ionisation methods for mass spectrometric analyses of biological macromolecules"},{"id":"757","n":"Koichi Tanaka","f":false,"by":1959,"age":43,"bc":"Japan","ac":"Japan","an":"Shimadzu Corp.","s":"1/4","m":"for their development of soft desorption ionisation methods for mass spectrometric analyses of biological macromolecules"},{"id":"758","n":"Kurt Wüthrich","f":false,"by":1938,"age":64,"bc":"Switzerland","ac":"Switzerland","an":"Eidgenössische Technische Hochschule (Swiss Federal Institute of Technology)","s":"1/2","m":"for his development of nuclear magnetic resonance spectroscopy for determining the three-dimensional structure of biological macromolecules in solution"}]},{"y":2003,"sym":"Ic","t":"Ion & water channels","fd":"bio","L":[{"id":"769","n":"Peter Agre","f":false,"by":1949,"age":54,"bc":"USA","ac":"USA","an":"Johns Hopkins University School of Medicine","s":"1/2","m":"for the discovery of water channels"},{"id":"770","n":"Roderick MacKinnon","f":false,"by":1956,"age":47,"bc":"USA","ac":"USA","an":"Rockefeller University","s":"1/2","m":"for structural and mechanistic studies of ion channels"}]},{"y":2004,"sym":"Ub","t":"Ubiquitin protein degradation","fd":"bio","L":[{"id":"779","n":"Aaron Ciechanover","f":false,"by":1947,"age":57,"bc":"Israel","ac":"Israel","an":"Technion - Israel Institute of Technology","s":"1/3","m":"for the discovery of ubiquitin-mediated protein degradation"},{"id":"780","n":"Avram Hershko","f":false,"by":1937,"age":66,"bc":"Hungary","ac":"Israel","an":"Technion - Israel Institute of Technology","s":"1/3","m":"for the discovery of ubiquitin-mediated protein degradation"},{"id":"781","n":"Irwin Rose","f":false,"by":1926,"age":78,"bc":"USA","ac":"USA","an":"University of California","s":"1/3","m":"for the discovery of ubiquitin-mediated protein degradation"}]},{"y":2005,"sym":"Mt","t":"Metathesis","fd":"org","L":[{"id":"794","n":"Yves Chauvin","f":false,"by":1930,"age":75,"bc":"Belgium","ac":"France","an":"Institut Français du Pétrole","s":"1/3","m":"for the development of the metathesis method in organic synthesis"},{"id":"795","n":"Robert H. Grubbs","f":false,"by":1942,"age":63,"bc":"USA","ac":"USA","an":"California Institute of Technology (Caltech)","s":"1/3","m":"for the development of the metathesis method in organic synthesis"},{"id":"796","n":"Richard R. Schrock","f":false,"by":1945,"age":60,"bc":"USA","ac":"USA","an":"Massachusetts Institute of Technology (MIT)","s":"1/3","m":"for the development of the metathesis method in organic synthesis"}]},{"y":2006,"sym":"Tx","t":"Eukaryotic transcription","fd":"bio","L":[{"id":"806","n":"Roger D. Kornberg","f":false,"by":1947,"age":59,"bc":"USA","ac":"USA","an":"Stanford University","s":"1","m":"for his studies of the molecular basis of eukaryotic transcription"}]},{"y":2007,"sym":"Sr","t":"Reactions on solid surfaces","fd":"phys","L":[{"id":"816","n":"Gerhard Ertl","f":false,"by":1936,"age":71,"bc":"Germany","ac":"Germany","an":"Fritz-Haber-Institut der Max-Planck-Gesellschaft","s":"1","m":"for his studies of chemical processes on solid surfaces"}]},{"y":2008,"sym":"Gf","t":"Green fluorescent protein","fd":"bio","L":[{"id":"829","n":"Osamu Shimomura","f":false,"by":1928,"age":80,"bc":"Japan","ac":"USA","an":"Marine Biological Laboratory (MBL)","s":"1/3","m":"for the discovery and development of the green fluorescent protein, GFP"},{"id":"830","n":"Martin Chalfie","f":false,"by":1947,"age":61,"bc":"USA","ac":"USA","an":"Columbia University","s":"1/3","m":"for the discovery and development of the green fluorescent protein, GFP"},{"id":"831","n":"Roger Y. Tsien","f":false,"by":1952,"age":56,"bc":"USA","ac":"USA","an":"University of California","s":"1/3","m":"for the discovery and development of the green fluorescent protein, GFP"}]},{"y":2009,"sym":"Rb","t":"The ribosome","fd":"bio","L":[{"id":"841","n":"Venkatraman Ramakrishnan","f":false,"by":1952,"age":57,"bc":"India","ac":"UK","an":"MRC Laboratory of Molecular Biology","s":"1/3","m":"for studies of the structure and function of the ribosome"},{"id":"842","n":"Thomas A. Steitz","f":false,"by":1940,"age":69,"bc":"USA","ac":"USA","an":"Yale University","s":"1/3","m":"for studies of the structure and function of the ribosome"},{"id":"843","n":"Ada E. Yonath","f":true,"by":1939,"age":70,"bc":"Israel","ac":"Israel","an":"Weizmann Institute of Science","s":"1/3","m":"for studies of the structure and function of the ribosome"}]},{"y":2010,"sym":"Pd","t":"Palladium cross-coupling","fd":"org","L":[{"id":"851","n":"Richard F. Heck","f":false,"by":1931,"age":79,"bc":"USA","ac":"USA","an":"University of Delaware","s":"1/3","m":"for palladium-catalyzed cross couplings in organic synthesis"},{"id":"852","n":"Ei-ichi Negishi","f":false,"by":1935,"age":75,"bc":"China","ac":"USA","an":"Purdue University","s":"1/3","m":"for palladium-catalyzed cross couplings in organic synthesis"},{"id":"853","n":"Akira Suzuki","f":false,"by":1930,"age":80,"bc":"Japan","ac":"Japan","an":"Hokkaido University","s":"1/3","m":"for palladium-catalyzed cross couplings in organic synthesis"}]},{"y":2011,"sym":"Qc","t":"Quasicrystals","fd":"inorg","L":[{"id":"867","n":"Dan Shechtman","f":false,"by":1941,"age":70,"bc":"Israel","ac":"Israel","an":"Technion - Israel Institute of Technology","s":"1","m":"for the discovery of quasicrystals"}]},{"y":2012,"sym":"Gp","t":"G-protein-coupled receptors","fd":"bio","L":[{"id":"878","n":"Robert J. Lefkowitz","f":false,"by":1943,"age":69,"bc":"USA","ac":"USA","an":"Howard Hughes Medical Institute","s":"1/2","m":"for studies of G-protein-coupled receptors"},{"id":"879","n":"Brian Kobilka","f":false,"by":1955,"age":57,"bc":"USA","ac":"USA","an":"Stanford University School of Medicine","s":"1/2","m":"for studies of G-protein-coupled receptors"}]},{"y":2013,"sym":"Ml","t":"Multiscale models","fd":"phys","L":[{"id":"889","n":"Martin Karplus","f":false,"by":1930,"age":83,"bc":"Austria","ac":"France","an":"Université de Strasbourg","s":"1/3","m":"for the development of multiscale models for complex chemical systems"},{"id":"890","n":"Michael Levitt","f":false,"by":1947,"age":66,"bc":"South Africa","ac":"USA","an":"Stanford University School of Medicine","s":"1/3","m":"for the development of multiscale models for complex chemical systems"},{"id":"891","n":"Arieh Warshel","f":false,"by":1940,"age":73,"bc":"Israel","ac":"USA","an":"University of Southern California","s":"1/3","m":"for the development of multiscale models for complex chemical systems"}]},{"y":2014,"sym":"Sm","t":"Super-resolution microscopy","fd":"meth","L":[{"id":"909","n":"Eric Betzig","f":false,"by":1960,"age":54,"bc":"USA","ac":"USA","an":"Janelia Research Campus, Howard Hughes Medical Institute","s":"1/3","m":"for the development of super-resolved fluorescence microscopy"},{"id":"910","n":"Stefan W. Hell","f":false,"by":1962,"age":51,"bc":"Romania","ac":"Germany","an":"Max Planck Institute for Biophysical Chemistry","s":"1/3","m":"for the development of super-resolved fluorescence microscopy"},{"id":"911","n":"William E. Moerner","f":false,"by":1953,"age":61,"bc":"USA","ac":"USA","an":"Stanford University","s":"1/3","m":"for the development of super-resolved fluorescence microscopy"}]},{"y":2015,"sym":"Dr","t":"DNA repair","fd":"bio","L":[{"id":"921","n":"Tomas Lindahl","f":false,"by":1938,"age":77,"bc":"Sweden","ac":"UK","an":"Francis Crick Institute","s":"1/3","m":"for mechanistic studies of DNA repair"},{"id":"922","n":"Paul Modrich","f":false,"by":1946,"age":69,"bc":"USA","ac":"USA","an":"Howard Hughes Medical Institute","s":"1/3","m":"for mechanistic studies of DNA repair"},{"id":"923","n":"Aziz Sancar","f":false,"by":1946,"age":69,"bc":"Turkey","ac":"USA","an":"University of North Carolina","s":"1/3","m":"for mechanistic studies of DNA repair"}]},{"y":2016,"sym":"Mm","t":"Molecular machines","fd":"org","L":[{"id":"931","n":"Jean-Pierre Sauvage","f":false,"by":1944,"age":72,"bc":"France","ac":"France","an":"University of Strasbourg","s":"1/3","m":"for the design and synthesis of molecular machines"},{"id":"932","n":"Sir J. Fraser Stoddart","f":false,"by":1942,"age":74,"bc":"UK","ac":"USA","an":"Northwestern University","s":"1/3","m":"for the design and synthesis of molecular machines"},{"id":"933","n":"Bernard L. Feringa","f":false,"by":1951,"age":65,"bc":"Netherlands","ac":"Netherlands","an":"University of Groningen","s":"1/3","m":"for the design and synthesis of molecular machines"}]},{"y":2017,"sym":"Ce","t":"Cryo-electron microscopy","fd":"meth","L":[{"id":"944","n":"Jacques Dubochet","f":false,"by":1942,"age":75,"bc":"Switzerland","ac":"Switzerland","an":"University of Lausanne","s":"1/3","m":"for developing cryo-electron microscopy for the high-resolution structure determination of biomolecules in solution"},{"id":"945","n":"Joachim Frank","f":false,"by":1940,"age":77,"bc":"Germany","ac":"USA","an":"Columbia University","s":"1/3","m":"for developing cryo-electron microscopy for the high-resolution structure determination of biomolecules in solution"},{"id":"946","n":"Richard Henderson","f":false,"by":1945,"age":72,"bc":"UK","ac":"UK","an":"MRC Laboratory of Molecular Biology","s":"1/3","m":"for developing cryo-electron microscopy for the high-resolution structure determination of biomolecules in solution"}]},{"y":2018,"sym":"Ev","t":"Directed evolution & phage display","fd":"bio","L":[{"id":"963","n":"Frances H. Arnold","f":true,"by":1956,"age":62,"bc":"USA","ac":"USA","an":"California Institute of Technology (Caltech)","s":"1/2","m":"for the directed evolution of enzymes"},{"id":"964","n":"George P. Smith","f":false,"by":1941,"age":77,"bc":"USA","ac":"USA","an":"University of Missouri","s":"1/4","m":"for the phage display of peptides and antibodies"},{"id":"965","n":"Sir Gregory P. Winter","f":false,"by":1951,"age":67,"bc":"UK","ac":"UK","an":"MRC Laboratory of Molecular Biology","s":"1/4","m":"for the phage display of peptides and antibodies"}]},{"y":2019,"sym":"Li","t":"Lithium-ion batteries","fd":"inorg","L":[{"id":"976","n":"John B. Goodenough","f":false,"by":1922,"age":97,"bc":"Germany","ac":"USA","an":"University of Texas","s":"1/3","m":"for the development of lithium-ion batteries"},{"id":"977","n":"M. Stanley Whittingham","f":false,"by":1941,"age":77,"bc":"UK","ac":"USA","an":"Binghamton University, State University of New York","s":"1/3","m":"for the development of lithium-ion batteries"},{"id":"978","n":"Akira Yoshino","f":false,"by":1948,"age":71,"bc":"Japan","ac":"Japan","an":"Asahi Kasei Corporation","s":"1/3","m":"for the development of lithium-ion batteries"}]},{"y":2020,"sym":"Cr","t":"CRISPR genome editing","fd":"bio","L":[{"id":"991","n":"Emmanuelle Charpentier","f":true,"by":1968,"age":51,"bc":"France","ac":"Germany","an":"Max Planck Unit for the Science of Pathogens","s":"1/2","m":"for the development of a method for genome editing"},{"id":"992","n":"Jennifer A. Doudna","f":true,"by":1964,"age":56,"bc":"USA","ac":"USA","an":"University of California","s":"1/2","m":"for the development of a method for genome editing"}]},{"y":2021,"sym":"Oc","t":"Asymmetric organocatalysis","fd":"org","L":[{"id":"1002","n":"Benjamin List","f":false,"by":1968,"age":53,"bc":"Germany","ac":"Germany","an":"Max-Planck-Institut für Kohlenforschung","s":"1/2","m":"for the development of asymmetric organocatalysis"},{"id":"1003","n":"David W.C. MacMillan","f":false,"by":1968,"age":53,"bc":"UK","ac":"USA","an":"Princeton University","s":"1/2","m":"for the development of asymmetric organocatalysis"}]},{"y":2022,"sym":"Ck","t":"Click & bioorthogonal chemistry","fd":"org","L":[{"id":"1015","n":"Carolyn Bertozzi","f":true,"by":1966,"age":56,"bc":"USA","ac":"USA","an":"Stanford University","s":"1/3","m":"for the development of click chemistry and bioorthogonal chemistry"},{"id":"1016","n":"Morten Meldal","f":false,"by":1954,"age":68,"bc":"Denmark","ac":"Denmark","an":"University of Copenhagen","s":"1/3","m":"for the development of click chemistry and bioorthogonal chemistry"},{"id":"743","n":"K. Barry Sharpless","f":false,"by":1941,"age":81,"bc":"USA","ac":"USA","an":"Scripps Research","s":"1/3","m":"for the development of click chemistry and bioorthogonal chemistry"}]},{"y":2023,"sym":"Qd","t":"Quantum dots","fd":"inorg","L":[{"id":"1029","n":"Moungi Bawendi","f":false,"by":1961,"age":62,"bc":"France","ac":"USA","an":"Massachusetts Institute of Technology (MIT)","s":"1/3","m":"for the discovery and synthesis of quantum dots"},{"id":"1030","n":"Louis Brus","f":false,"by":1943,"age":80,"bc":"USA","ac":"USA","an":"Columbia University","s":"1/3","m":"for the discovery and synthesis of quantum dots"},{"id":"1031","n":"Aleksey Yekimov","f":false,"by":1945,"age":78,"bc":"Russia","ac":"USA","an":"Nanocrystals Technology Inc.","s":"1/3","m":"for the discovery and synthesis of quantum dots"}]},{"y":2024,"sym":"Pf","t":"Protein design & structure prediction","fd":"bio","L":[{"id":"1039","n":"David Baker","f":false,"by":1962,"age":62,"bc":"USA","ac":"USA","an":"University of Washington","s":"1/2","m":"for computational protein design"},{"id":"1040","n":"Demis Hassabis","f":false,"by":1976,"age":48,"bc":"UK","ac":"UK","an":"Google DeepMind","s":"1/4","m":"for protein structure prediction"},{"id":"1041","n":"John Jumper","f":false,"by":1985,"age":39,"bc":"USA","ac":"UK","an":"Google DeepMind","s":"1/4","m":"for protein structure prediction"}]},{"y":2025,"sym":"Mf","t":"Metal–organic frameworks","fd":"inorg","L":[{"id":"1053","n":"Susumu Kitagawa","f":false,"by":1951,"age":74,"bc":"Japan","ac":"Japan","an":"Kyoto University","s":"1/3","m":"for the development of metal–organic frameworks"},{"id":"1054","n":"Richard Robson","f":false,"by":1937,"age":88,"bc":"UK","ac":"Australia","an":"University of Melbourne","s":"1/3","m":"for the development of metal–organic frameworks"},{"id":"1055","n":"Omar M. Yaghi","f":false,"by":1965,"age":60,"bc":"Jordan","ac":"USA","an":"University of California","s":"1/3","m":"for the development of metal–organic frameworks"}]}];
+  const PHOTOS = {"779":["Sharon Gabay","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Aaron_Ciechanover_1.jpg"],"259":["Rob Bogaerts for Anefo","CC BY-SA 3.0 nl","https://creativecommons.org/licenses/by-sa/3.0/nl/deed.en","https://commons.wikimedia.org/wiki/File:Aaron_Klug_1979.jpg"],"843":["Hareesh N. Nampoothiri","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Ada_E._Yonath.jpg"],"199":["Willy Pragher","CC BY 3.0 de","https://creativecommons.org/licenses/by/3.0/de/deed.en","https://commons.wikimedia.org/wiki/File:Bad_Schachen_Portr%C3%A4t;_Adolf_Butenandt_-_W134Nr.020182c_-_Willy_Pragher_(cropped).jpg"],"164":["","Licence Ouverte","https://www.etalab.gouv.fr/licence-ouverte-open-licence","https://commons.wikimedia.org/wiki/File:Adolf_von_Baeyer_CIPB0531_(cropped).jpg"],"185":["","Public domain","","https://commons.wikimedia.org/wiki/File:Windaus.jpg"],"292":["Douglas A. Lockard","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Ahmed_Zewail_HD2009_Othmer_Gold_Medal_portrait.JPG"],"853":["日本学士院","CC BY 4.0","https://creativecommons.org/licenses/by/4.0","https://commons.wikimedia.org/wiki/File:Akira_Suzuki_20111212.jpg"],"978":["大臣官房人事課","CC BY 4.0","https://creativecommons.org/licenses/by/4.0","https://commons.wikimedia.org/wiki/File:Akira_Yoshino_20170920_(cropped_2).jpg"],"729":["Vogler","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Heeger,_Alan_J._(1936).jpg"],"730":["UnknownUnknown","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Alan_MacDiarmid_2005.017.004e_crop.tif"],"1031":["US Embassy Sweden","CC BY 2.0","https://creativecommons.org/licenses/by/2.0","https://commons.wikimedia.org/wiki/File:US_Embassy_Sweden_2023_Nobel_Reception_(53390424929)_(cropped).jpg"],"174":["Franz Schmelhaus, Zürich","Public domain","","https://commons.wikimedia.org/wiki/File:(UAZ)_AB.1.1093_Werner.tif"],"214":["Unknown authorUnknown author","Public domain","","https://commons.wikimedia.org/wiki/File:Archer_John_Porter_Martin_Nobel.jpg"],"891":["Tomasz A. Wesolowski","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:AW_TW_PS.jpg"],"208":["Nobel Foundation","Public domain","","https://commons.wikimedia.org/wiki/File:Arne_Tiselius.jpg"],"186":["Nobel Foundation","Public domain","","https://commons.wikimedia.org/wiki/File:ArthurHarden.jpg"],"203":["AnonymousUnknown author","CC BY 4.0","https://creativecommons.org/licenses/by/4.0","https://commons.wikimedia.org/wiki/File:A-I-Virtanen-portrait.jpg"],"780":["Sharon Gabay","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Avram_Hershko.jpg"],"923":["Holger Motzkau","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Aziz_Sancar_0060.jpg"],"1002":["Raimond Spekking","CC BY-SA 4.0","https://creativecommons.org/licenses/by-sa/4.0","https://commons.wikimedia.org/wiki/File:Empfang_f%C3%BCr_Benjamin_List_im_Rathaus_K%C3%B6ln-7597-crop.jpg"],"933":["Wybe","CC BY-SA 4.0","https://creativecommons.org/licenses/by-sa/4.0","https://commons.wikimedia.org/wiki/File:FeringaWiki.jpg"],"879":["Charles Parnot","CC BY-SA 2.0","https://creativecommons.org/licenses/by-sa/2.0","https://commons.wikimedia.org/wiki/File:Brian_Kobilka_(649437151).jpg"],"261":["Dann Kristoff","CC BY-SA 4.0","https://creativecommons.org/licenses/by-sa/4.0","https://commons.wikimedia.org/wiki/File:R._B._Merrifield.jpg"],"189":["Nobel Foundation","Public domain","","https://commons.wikimedia.org/wiki/File:Carl_Bosch.jpg"],"1015":["Kuebi = Armin Kübelbeck","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Carolyn_Bertozzi_IMG_9384.jpg"],"241":["Hubbard, Edward A.; National Institutes of Health","Public domain","","https://commons.wikimedia.org/wiki/File:Christian_B._Anfinsen,_NIH_portrait,_1969.jpg"],"867":["Holger Motzkau","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Nobel_Prize_2011-Nobel_interviews_KVA-DSC_8049.jpg"],"1039":["John Sears","CC BY-SA 4.0","https://creativecommons.org/licenses/by-sa/4.0","https://commons.wikimedia.org/wiki/File:David_Baker,_2024_Nobel_Prize_Laureate_in_Chemistry_4_(cropped).jpg"],"1003":["North Lanarkshire Council","OGL 3","http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3","https://commons.wikimedia.org/wiki/File:David_MacMillan.jpg"],"1040":["John Sears","CC BY-SA 4.0","https://creativecommons.org/licenses/by-sa/4.0","https://commons.wikimedia.org/wiki/File:Demis_Hassabis,_2024_Nobel_Prize_Laureate_in_Chemistry_7_(cropped).jpg"],"237":["National Portrait Gallery","Public domain","","https://commons.wikimedia.org/wiki/File:Derek-Harold-Richard-Barton.jpg"],"230":["University of Bristol","CC BY-SA 2.0","https://creativecommons.org/licenses/by-sa/2.0","https://commons.wikimedia.org/wiki/File:Professor_Dorothy_Hodgkin.jpg"],"264":["Sana","CC BY-SA 3.0","http://creativecommons.org/licenses/by-sa/3.0/","https://commons.wikimedia.org/wiki/File:Herschbach.JPG"],"166":["Nobel Foundation","Public domain","","https://commons.wikimedia.org/wiki/File:Eduardbuchner.jpg"],"212":["Nobel Foundation","Public domain","","https://commons.wikimedia.org/wiki/File:Edwin_McMillan_Nobel.jpg"],"852":["Holger Motzkau","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Nobel_Prize_2010-Press_Conference_KVA-DSC_7398.jpg"],"275":["Creator: Trvthchem personal photo","CC0","http://creativecommons.org/publicdomain/zero/1.0/deed.en","https://commons.wikimedia.org/wiki/File:E.J.Coreyx240.jpg"],"161":["","CC BY 4.0","https://creativecommons.org/licenses/by/4.0","https://commons.wikimedia.org/wiki/File:Hermann_Emil_Fischer._Photograph_by_Atelier_Victoria,_1895._Wellcome_V0027668_(cropped).jpg"],"991":["Bianca Fioretti, Hallbauer & Fioretti","CC BY-SA 4.0","https://creativecommons.org/licenses/by-sa/4.0","https://commons.wikimedia.org/wiki/File:Emmanuelle_Charpentier.jpg"],"909":["Ecole polytechnique Université Paris-Saclay","CC BY-SA 2.0","https://creativecommons.org/licenses/by-sa/2.0","https://commons.wikimedia.org/wiki/File:Eric_Betzig.jpg"],"167":["George Grantham Bain Collection (Library of Congress)","Public domain","","https://commons.wikimedia.org/wiki/File:Ernest_Rutherford_LOC.jpg"],"283":["Markus Pössel (Mapos)","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:F._Sherwood_Rowland.jpg"],"963":["Christopher Michel","CC BY-SA 4.0","https://creativecommons.org/licenses/by-sa/4.0","https://commons.wikimedia.org/wiki/File:Frances_Arnold_in_2021_at_Caltech_01_(cropped).jpg"],"180":["Unknown authorUnknown author","Public domain","","https://commons.wikimedia.org/wiki/File:Francis_William_Aston.jpg"],"193":["Studio Harcourt","Public domain","","https://commons.wikimedia.org/wiki/File:Joliot-Curie_Harcourt_1948_3.jpg"],"222":["","Public domain","","https://commons.wikimedia.org/wiki/File:Frederick_Sanger2.jpg"],"179":["Unknown authorUnknown author","Public domain","","https://commons.wikimedia.org/wiki/File:Frederick_Soddy.jpg"],"190":["Nobel Foundation","Public domain","","https://commons.wikimedia.org/wiki/File:Bergius.jpg"],"177":["Unknown authorUnknown author","Public domain","","https://commons.wikimedia.org/wiki/File:Portret_van_Professor_Fritz_Haber,_een_chemicus_uit_Duitsland_(foto_1918-_1934),_SFA002023057.jpg"],"181":["","Public domain","","https://commons.wikimedia.org/wiki/File:Fritz_Pregl.jpg"],"245":["Smokefoot","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Geoffrey_Wilkinson_ca._1976.png"],"280":["user:Bitman","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Ol%C3%A1h_Gy%C3%B6rgy_el%C5%91ad%C3%A1sa_8299.jpg"],"201":["Unknown authorUnknown author","Public domain","","https://commons.wikimedia.org/wiki/File:George_de_Hevesy.jpg"],"964":["Bengt Nyman from Vaxholm, Sweden","CC BY 2.0","https://creativecommons.org/licenses/by/2.0","https://commons.wikimedia.org/wiki/File:George_Smith_EM1B5987_(31295398907).jpg"],"235":["Unknown authorUnknown author","Public domain","","https://commons.wikimedia.org/wiki/File:George_Porter_Nobel.jpg"],"816":["Wolfram Däumel","CC BY-SA 2.0 de","https://creativecommons.org/licenses/by-sa/2.0/de/deed.en","https://commons.wikimedia.org/wiki/File:Prof_Ertl-Portrait.jpg"],"240":["Willy Pragher","CC BY 4.0","https://creativecommons.org/licenses/by/4.0","https://commons.wikimedia.org/wiki/File:24_Tagung_1974_Chemiker-_Gerhard_Herzberg_-_LABW_-_Staatsarchiv_Freiburg_W_134_Nr._101112b.jpeg"],"229":["Unknown authorUnknown author","Public domain","","https://commons.wikimedia.org/wiki/File:Giulio_Natta_Nobel.jpg"],"213":["Atomic Energy Commission. (1946 - 01/19/1975)","Public domain","","https://commons.wikimedia.org/wiki/File:Glenn_Seaborg_-_1964.jpg"],"188":["Nobel Foundation","Public domain","","https://commons.wikimedia.org/wiki/File:Hans_Fischer_(Nobel).jpg"],"187":["Nobel Foundation","Public domain","","https://commons.wikimedia.org/wiki/File:Euler-chelpin.jpg"],"192":["Flickr: ENERGY.GOV - Unknown photographer. Restored by Creator:Adam Cuerden","Public domain","","https://commons.wikimedia.org/wiki/File:Harold_Urey,_1934.jpg"],"272":["Shauchungshin","CC BY-SA 4.0","https://creativecommons.org/licenses/by-sa/4.0","https://commons.wikimedia.org/wiki/File:22_MPI_BP_Hartmut_Michel_221028_quadrat.jpg"],"184":["Nobel Foundation","Public domain","","https://commons.wikimedia.org/wiki/File:Heinrich_Wieland.jpg"],"165":["sv:Generalstabens litografiska anstalt","Public domain","","https://commons.wikimedia.org/wiki/File:Henri_Moissan.jpg"],"260":["ENERGY.GOV","Public domain","","https://commons.wikimedia.org/wiki/File:Henry_Taube_-_HD.3F.005_(11086397086).jpg"],"262":["Dave Pape","Public domain","","https://commons.wikimedia.org/wiki/File:Herbert_Hauptman_-_UB_2009.jpg"],"252":["Willy Pragher","CC BY 3.0 de","https://creativecommons.org/licenses/by/3.0/de/deed.en","https://commons.wikimedia.org/wiki/File:33._Tagung_1983_Chemiker_Herbert_C._Brown_-_W134Nr.120809d_-_Willy_Pragher_(cropped).jpg"],"216":["Nobel Foundation","Public domain","","https://commons.wikimedia.org/wiki/File:Hermann_Staudinger.jpg"],"731":["日本学士院","CC BY 4.0","https://creativecommons.org/licenses/by/4.0","https://commons.wikimedia.org/wiki/File:Hideki_Shirakawa.jpg"],"250":["Unknown (Keystone - US)","Public domain","","https://commons.wikimedia.org/wiki/File:Ilya_Prigogine_1977c.jpg"],"194":["Nobel Foundation","Public domain","","https://commons.wikimedia.org/wiki/File:Joliot-curie.jpg"],"191":["Nobel Foundation","Public domain","","https://commons.wikimedia.org/wiki/File:Langmuir.jpg"],"781":["Photograph by Avi Blizovsky","CC BY-SA 3.0","http://creativecommons.org/licenses/by-sa/3.0/","https://commons.wikimedia.org/wiki/File:Nobel2004chemistrylaurets-Rose.jpg"],"160":["Unknown authorUnknown author","Public domain","","https://commons.wikimedia.org/wiki/File:Vant_Hoff.jpg"],"944":["Félix Imhof ©UNIL, 4 October 2017","CC BY-SA 4.0","https://creativecommons.org/licenses/by-sa/4.0","https://commons.wikimedia.org/wiki/File:Jacques_Dubochet,_2017_(cropped).jpg"],"204":["Unknown authorUnknown author","Public domain","","https://commons.wikimedia.org/wiki/File:James_Batcheller_Sumner.jpg"],"223":["archiv ÚFCH J.Heyrovského AV ČR, v.v.i.","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Heyrovsky_Jaroslav.jpg"],"268":["Photo Claude TRUONG-NGOC","CC BY-SA 4.0","https://creativecommons.org/licenses/by-sa/4.0","https://commons.wikimedia.org/wiki/File:Jean-Marie_Lehn_par_Claude_Truong-Ngoc_octobre_2018.jpg"],"931":["Bengt Nyman from Vaxholm, Sweden","CC BY 2.0","https://creativecommons.org/licenses/by/2.0","https://commons.wikimedia.org/wiki/File:Jean-Pierre_Sauvage.jpg"],"992":["Duncan.Hull","CC BY-SA 4.0","https://creativecommons.org/licenses/by-sa/4.0","https://commons.wikimedia.org/wiki/File:Professor_Jennifer_Doudna_ForMemRS_(cropped).jpg"],"289":["Lars Kruse","CC BY-SA 2.5","https://creativecommons.org/licenses/by-sa/2.5","https://commons.wikimedia.org/wiki/File:Skou2008.jpg"],"263":["U.S. Navy photo by John F. Williams","Public domain","","https://commons.wikimedia.org/wiki/File:Jerome_Karle,_2009.jpg"],"945":["Bengt Nyman from Vaxholm, Sweden","CC BY 2.0","https://creativecommons.org/licenses/by/2.0","https://commons.wikimedia.org/wiki/File:Joachim_Frank_EM1B8792_(27115577469).jpg"],"270":["Willy Pragher","CC BY 3.0 de","https://creativecommons.org/licenses/by/3.0/de/deed.en","https://commons.wikimedia.org/wiki/File:39._Tagung_1989_Chemiker;_Pressekonferenz_Johann_Deisenhofer_-_W134Nr.126215c_-_Willy_Pragher.jpg"],"756":["","Public domain","","https://commons.wikimedia.org/wiki/File:John_B_Fenn01.jpg"],"976":["US Embassy Sweden","CC BY 2.0","https://creativecommons.org/licenses/by/2.0","https://commons.wikimedia.org/wiki/File:Nobel_9_Dec_2019_029_copy_(49204051647)_(cropped).jpg"],"227":["Unknown authorUnknown author","Public domain","","https://commons.wikimedia.org/wiki/File:John_Kendrew_Nobel.jpg"],"266":["Bengt Oberger","CC BY-SA 4.0","https://creativecommons.org/licenses/by-sa/4.0","https://commons.wikimedia.org/wiki/File:John_Polanyi_01.jpg"],"247":["Unknown (Associated Press)","Public domain","","https://commons.wikimedia.org/wiki/File:John_Cornforth_1975.jpg"],"288":["Mogens Engelund","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:John_Ernest_Walker.jpg"],"205":["Unknown authorUnknown author","Public domain","","https://commons.wikimedia.org/wiki/File:John_Howard_Northrop.jpg"],"1041":["John Sears","CC BY-SA 4.0","https://creativecommons.org/licenses/by-sa/4.0","https://commons.wikimedia.org/wiki/File:John_Jumper,_2024_Nobel_Prize_Laureate_in_Chemistry_7_(cropped).jpg"],"291":["The White House","Public domain","","https://commons.wikimedia.org/wiki/File:John_Anthony_Pople.png"],"743":["Bengt Oberger","CC BY-SA 4.0","https://creativecommons.org/licenses/by-sa/4.0","https://commons.wikimedia.org/wiki/File:Barry_Sharpless_02.jpg"],"228":["Unknown authorUnknown author","Public domain","","https://commons.wikimedia.org/wiki/File:Karl_Ziegler_Nobel.jpg"],"278":["Dona Mapston","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Kary_Mullis.jpg"],"257":["Nobel Foundation","Public domain","","https://commons.wikimedia.org/wiki/File:Kenichi_Fukui_nobel.jpg"],"757":["日本学士院","CC BY 4.0","https://creativecommons.org/licenses/by/4.0","https://commons.wikimedia.org/wiki/File:Koichi_Tanaka_2020.jpg"],"211":["Unknown authorUnknown author","Public domain","","https://commons.wikimedia.org/wiki/File:Kurt_Alder_Nobel.jpg"],"758":["Markus Pössel (User: Mapos)","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Kurt_wuethrich.jpg"],"236":["Unknown authorUnknown author","Public domain","","https://commons.wikimedia.org/wiki/File:Onsager_1968.jpg"],"200":["Fr. Schmelhaus / ETH Zürich","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Leopold_Ruzicka_ETH-Bib_Portr_00239.jpg"],"217":["Nobel Foundation","Public domain","","https://commons.wikimedia.org/wiki/File:Linus_Pauling_1962.jpg"],"221":["Unknown authorUnknown author","Public domain","","https://commons.wikimedia.org/wiki/File:Alexander_Todd_Nobel.jpg"],"1030":["Credit Line: AIP Emilio Segrè Visual Archives","Copyrighted free use","","https://commons.wikimedia.org/wiki/File:Louis_E_Brus.jpg"],"239":["","Public domain","","https://commons.wikimedia.org/wiki/File:Luis_Federico_Leloir_-_young.jpg"],"977":["Stanford Energy","CC BY 3.0","https://creativecommons.org/licenses/by/3.0","https://commons.wikimedia.org/wiki/File:Stanley_Whittingham_(portrait)_2020.jpg"],"233":["GFHund","CC BY 3.0","https://creativecommons.org/licenses/by/3.0","https://commons.wikimedia.org/wiki/File:Eigen,Manfred_1996_G%C3%B6ttingen.jpg"],"6":["Unknown authorUnknown author","Public domain","","https://commons.wikimedia.org/wiki/File:Marie_Curie_(1900)_(cropped).jpg"],"282":["Janwikifoto","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Mario_Molina_1c389_8387.jpg"],"889":["Bengt Nyman","CC BY 2.0","https://creativecommons.org/licenses/by/2.0","https://commons.wikimedia.org/wiki/File:Martin_Karplus_Nobel_Prize_22_2013.jpg"],"226":["Associated Press","Public domain","","https://commons.wikimedia.org/wiki/File:Max_Perutz_1962.jpg"],"225":["\"Photolab\"","Public domain","","https://commons.wikimedia.org/wiki/File:Melvin_Calvin.jpg"],"890":["Bengt Nyman from Vaxholm, Sweden","CC BY 2.0","https://creativecommons.org/licenses/by/2.0","https://commons.wikimedia.org/wiki/File:DIMG_7539_(11253383215).jpg"],"279":["File:Michael Smith party at Mary Vickers's house.1994, F-109-7-0-0-10 001.jpg: SCWIST S…","CC BY-SA 4.0","https://creativecommons.org/licenses/by-sa/4.0","https://commons.wikimedia.org/wiki/File:Michael_Smith_cropped.jpg"],"1016":["Archivo Fotográfico Universidad de Navarra","CC BY-SA 4.0","https://creativecommons.org/licenses/by-sa/4.0","https://commons.wikimedia.org/wiki/File:MortenMeldal23.jpg"],"1029":["US Embassy Sweden","CC BY 2.0","https://creativecommons.org/licenses/by/2.0","https://commons.wikimedia.org/wiki/File:US_Embassy_Sweden_2023_Nobel_Reception_(53390424864)_(cropped).jpg"],"220":["Unknown authorUnknown author","Public domain","","https://commons.wikimedia.org/wiki/File:Nikolay_Semyonov_Nobel.jpg"],"196":["Nobel Foundation","Public domain","","https://commons.wikimedia.org/wiki/File:Norman_Haworth.jpg"],"238":["Unknown authorUnknown author","CC BY 3.0","https://creativecommons.org/licenses/by/3.0","https://commons.wikimedia.org/wiki/File:Odd_Hassel.jpg"],"1055":["Christopher Michel","CC BY-SA 4.0","https://creativecommons.org/licenses/by-sa/4.0","https://commons.wikimedia.org/wiki/File:Omar_Yaghi_413953_by_Christopher_Michel_1-7-2025.jpg"],"829":["Prolineserver (talk)","CC BY-SA 4.0","https://creativecommons.org/licenses/by-sa/4.0","https://commons.wikimedia.org/wiki/File:Osamu_Shimomura-press_conference_Dec_06th,_2008-2.jpg"],"210":["Unknown authorUnknown author","Public domain","","https://commons.wikimedia.org/wiki/File:Otto_Paul_Hermann_Diels.jpg"],"202":["Nobel Foundation","Public domain","","https://commons.wikimedia.org/wiki/File:Otto_Hahn_(Nobel).jpg"],"169":["Unknown authorUnknown author","Public domain","","https://commons.wikimedia.org/wiki/File:Otto_Wallach_1910.jpg"],"254":["Unknown authorUnknown author","Public domain","","https://commons.wikimedia.org/wiki/File:Paul_Berg_in_1980.jpg"],"287":["GBHayes","CC BY-SA 4.0","https://creativecommons.org/licenses/by-sa/4.0","https://commons.wikimedia.org/wiki/File:Paul_D._Boyer.jpg"],"281":["Teemu Rajala","CC BY 3.0","https://creativecommons.org/licenses/by/3.0","https://commons.wikimedia.org/wiki/File:Paul_Crutzen.jpg"],"246":["Unknown (Associated Press)","Public domain","","https://commons.wikimedia.org/wiki/File:Paul_Flory_1973.jpg"],"197":["UnknownUnknown","CC BY-SA 4.0","https://creativecommons.org/licenses/by-sa/4.0","https://commons.wikimedia.org/wiki/File:UAZ_DOK.005.059_Karrer.tif"],"922":["Holger Motzkau","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Paul_L._Modrich_0116.jpg"],"173":["Nobel Foundation","Public domain","","https://commons.wikimedia.org/wiki/File:Paul_Sabatier.jpg"],"769":["Nobel Media","CC BY 3.0","https://creativecommons.org/licenses/by/3.0","https://commons.wikimedia.org/wiki/File:Peter_Agre.jpg"],"195":["Unknown authorUnknown author","Public domain","","https://commons.wikimedia.org/wiki/File:Debye100.jpg"],"251":["Willy Pragher","CC BY 3.0 de","https://creativecommons.org/licenses/by/3.0/de/deed.en","https://commons.wikimedia.org/wiki/File:36._Tagung_1986_Chemiker;_Pressekonferenz_Peter_D._Mitchell_-_W134Nr.125218c_-_Willy_Pragher_(cropped).jpg"],"286":["RonnieV","CC BY-SA 4.0","https://creativecommons.org/licenses/by-sa/4.0","https://commons.wikimedia.org/wiki/File:Richard_Smalley.png"],"851":["Richard_Fred_Heck_2.jpg: BloodIce derivative work: ukexpat (talk)","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Richard_Fred_Heck_cropped.jpg"],"946":["Bengt Nyman from Vaxholm, Sweden","CC BY 2.0","https://creativecommons.org/licenses/by/2.0","https://commons.wikimedia.org/wiki/File:Richard_Henderson_D81_4486_(38005042695).jpg"],"198":["ETH Zürich","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Richard_Kuhn_ETH-Bib_Dia_248-065.jpg"],"215":["Unknown authorUnknown author","Public domain","","https://commons.wikimedia.org/wiki/File:Richard_Laurence_Millington_Synge.jpg"],"276":["Unknown authorUnknown author","CC BY-SA 4.0","https://creativecommons.org/licenses/by-sa/4.0","https://commons.wikimedia.org/wiki/File:Richard_R._Ernst_1980s_(cropped).jpg"],"796":["R._Schrock_-_IChO_2012_Opening_Ceremony.JPG: A.mela93 derivative work: Materialscientist","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:R._Schrock_2012.jpg"],"1054":["Karen Zhou","CC BY-SA 4.0","https://creativecommons.org/licenses/by-sa/4.0","https://commons.wikimedia.org/wiki/File:Richard_Robson_2025_Nobel_laureates_in_chemistry_at_Stockholm_University_(cropped).jpg"],"176":["Unknown authorUnknown author","Public domain","","https://commons.wikimedia.org/wiki/File:Richard_Willst%C3%A4tter.jpg"],"182":["Walter Gircke","Public domain","","https://commons.wikimedia.org/wiki/File:Richard_Adolf_Zsigmondy_LOC.jpg"],"258":[". The original uploader was Xtreambar at English Wikipedia.","Public domain","","https://commons.wikimedia.org/wiki/File:Roald_Hoffmann.jpg"],"231":["Robert_Burns_Woodward_in_1965.jpg: The original uploader was Peter Geymayer at German W…","Public domain","","https://commons.wikimedia.org/wiki/File:Robert_Burns_Woodward_portrait.jpg"],"284":["Douglas A. Lockard","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Robert_Curl_crop_2009_CHAO.jpg"],"795":["Conrad Erb","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Robert_H._Grubbs_HD2010_AIC_Gold_Medal_2.JPG"],"271":["derivative work: Ginosal (User talk) Primorac_-_Robert_Huber_-_Henry_Lee.jpg: MZOŠ","CC BY-SA 3.0","http://creativecommons.org/licenses/by-sa/3.0/","https://commons.wikimedia.org/wiki/File:Robert_Huber.JPG"],"878":["Bengt Nyman","CC BY 2.0","https://creativecommons.org/licenses/by/2.0","https://commons.wikimedia.org/wiki/File:Robert_Lefkowitz_1_2012_(cropped).jpg"],"232":["GFHund","CC BY 3.0","https://creativecommons.org/licenses/by/3.0","https://commons.wikimedia.org/wiki/File:Mulliken,Robert_1929_Chicago.jpg"],"770":["PotassiumChannel","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Roderick_MacKinnon,_M.D..jpg"],"806":["Рустем Кадыров","CC BY 4.0","https://creativecommons.org/licenses/by/4.0","https://commons.wikimedia.org/wiki/File:Roger_Kornberg_April_2016.jpg"],"234":["The Nobel Foundation","Public domain","","https://commons.wikimedia.org/wiki/File:Ronald_George_Wreyford_Norrish.jpg"],"277":["No machine-readable author provided. Xvlun~commonswiki assumed (based on copyright clai…","CC BY-SA 2.5","https://creativecommons.org/licenses/by-sa/2.5","https://commons.wikimedia.org/wiki/File:Prof._Dr._Rudolph_A._Marcus_(cropped).jpg"],"742":["日本学士院","CC BY 4.0","https://creativecommons.org/licenses/by/4.0","https://commons.wikimedia.org/wiki/File:Ryoji_Noyori_20021212.jpg"],"273":["NIH","Public domain","","https://commons.wikimedia.org/wiki/File:Sidney_Altman_crop.jpg"],"219":["Unidentified photographer","Public domain","","https://commons.wikimedia.org/wiki/File:Cyril_Norman_Hinshelwood_Nobel.jpg"],"965":["Aga Machaj","CC BY-SA 4.0","https://creativecommons.org/licenses/by-sa/4.0","https://commons.wikimedia.org/wiki/File:Gregory_Winter,_2016_(cropped).jpg"],"285":["NIMSoffice","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Hkroto.jpg"],"932":["Bengt Nyman from Vaxholm, Sweden","CC BY 2.0","https://creativecommons.org/licenses/by/2.0","https://commons.wikimedia.org/wiki/File:Nobel_Laureates_Fraser_Stoddart_2016_(31117136180).jpg"],"207":["Unknown authorUnknown author","Public domain","","https://commons.wikimedia.org/wiki/File:Robert_Robinson_organic_chemist.jpg"],"163":["Elliott & Fry","Public domain","","https://commons.wikimedia.org/wiki/File:William_Ramsay.jpg"],"910":["Bernd Schuller, Max-Planck-Institut für biophysikalische Chemie","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Stefan_W_Hell.jpg"],"1053":["日本学士院","CC BY 4.0","https://creativecommons.org/licenses/by/4.0","https://commons.wikimedia.org/wiki/File:Susumu_Kitagawa_cropped_Susumu_Kitagawa_20191212.jpg"],"162":["Photogravure Meisenbach Riffarth & Co. Leipzig.","Public domain","","https://commons.wikimedia.org/wiki/File:Arrhenius2.jpg"],"183":["Unknown authorUnknown author","Public domain","","https://commons.wikimedia.org/wiki/File:The-svedberg-1.jpg"],"175":["Nobel Foundation","Public domain","","https://commons.wikimedia.org/wiki/File:Theodore_william_richards.jpg"],"842":["Prolineserver (talk)","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Thomas_A._Steitz.jpg"],"274":["Jane Gitschier","CC BY 2.5","https://creativecommons.org/licenses/by/2.5","https://commons.wikimedia.org/wiki/File:Thomas_Robert_Cech.png"],"921":["Holger Motzkau","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Tomas_Lindahl_0113.jpg"],"841":["Royal Society uploader","CC BY-SA 4.0","https://creativecommons.org/licenses/by-sa/4.0","https://commons.wikimedia.org/wiki/File:Venki_Ramakrishnan.jpg"],"172":["Fotograv. - Generalstabens Litografiska Anstalt Stockholm","Public domain","","https://commons.wikimedia.org/wiki/File:Viktor-grignard_(cropped).jpg"],"218":["Maxdugan26","CC BY-SA 4.0","https://creativecommons.org/licenses/by-sa/4.0","https://commons.wikimedia.org/wiki/File:Dr._Vincent_du_Vigneaud.jpg"],"248":["ETH Zürich","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Vladimir_Prelog_ETH-Bib_Portr_00214.jpg"],"255":["Douglas A. Lockard","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Walter_Gilbert_HD2008_portrait.JPG"],"290":["Jtk33","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:WalterKohnGraz21042006_1.jpg"],"178":["Smithsonian Institution","No restrictions","https://www.flickr.com/commons/usage/","https://commons.wikimedia.org/wiki/File:Walther_Nernst_SI.jpg"],"206":["Unknown authorUnknown author","Public domain","","https://commons.wikimedia.org/wiki/File:Wendell_Meredith_Stanley.jpg"],"168":["Nobel Foundation","Public domain","","https://commons.wikimedia.org/wiki/File:Ostwald.jpg"],"911":["Kevin Lowder","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:WE_Moerner.jpg"],"249":["Jslipscomb James S. Lipscomb","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:William_n_lipscomb_jr.jpg"],"265":["Douglas A. Lockard","CC BY-SA 3.0","https://creativecommons.org/licenses/by-sa/3.0","https://commons.wikimedia.org/wiki/File:Yuan_Tseh_Lee_HD2008_Othmer_Gold_Medal_portrait.JPG"],"794":["Barney Grubbs derivative work: MagentaGreen, Ephraim33","CC BY 2.0","https://creativecommons.org/licenses/by/2.0","https://commons.wikimedia.org/wiki/File:Chauvin,_Yves_(1930-2015).jpg"]}; // laureate id -> [artist, licence, licence URL, Commons file page]
+
+  const FIELDS = [
+    { k: 'bio', name: 'Biochemistry' },
+    { k: 'org', name: 'Organic & synthesis' },
+    { k: 'phys', name: 'Physical & theoretical' },
+    { k: 'inorg', name: 'Inorganic & materials' },
+    { k: 'meth', name: 'Methods & instruments' },
+    { k: 'nuc', name: 'Nuclear & isotopes' },
+  ];
+  const FMAP = Object.fromEntries(FIELDS.map((f) => [f.k, f]));
+  const PRIZES = DATA.filter((d) => !d.none);
+  const AWARDS = PRIZES.flatMap((p) => p.L.map((l, i) => ({ ...l, y: p.y, fd: p.fd, i, k: p.L.length })));
+  const BY_YEAR = new Map(DATA.map((d) => [d.y, d]));
+  const DECADES = Array.from({ length: 13 }, (_, i) => 1900 + i * 10);
+  const ANNOUNCE = Date.UTC(2026, 9, 7, 9, 45); // 11:45 CEST = 09:45 UTC
+  const SVGNS = 'http://www.w3.org/2000/svg';
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const SHARE = { '1': 'Whole prize', '1/2': 'Half the prize', '1/3': 'A third of the prize', '1/4': 'A quarter of the prize' };
+  const NOTES = {
+    'Marie Curie|1911': 'Also won the 1903 physics prize. Still the only person with Nobel Prizes in two sciences.',
+    'Irène Joliot-Curie|1935': 'Daughter of Marie Curie. She shared the prize with her husband.',
+    'Frédéric Joliot|1935': 'The youngest chemistry laureate, at 35.',
+    'Richard Kuhn|1938': 'Barred by the Nazi government from accepting. He received the diploma and medal after the war.',
+    'Adolf Butenandt|1939': 'Barred by the Nazi government from accepting. He received the diploma and medal after the war.',
+    'Linus Pauling|1954': 'Also won the 1962 Peace Prize: the only person with two unshared Nobel Prizes.',
+    'Frederick Sanger|1958': 'Won again in 1980, the first person with two chemistry prizes.',
+    'Dorothy Crowfoot Hodgkin|1964': 'The last woman to win the chemistry prize alone.',
+    'Frederick Sanger|1980': 'His second chemistry prize, after 1958.',
+    'K. Barry Sharpless|2001': 'Won again in 2022.',
+    'Roger D. Kornberg|2006': 'Son of Arthur Kornberg, who won the 1959 prize in physiology or medicine.',
+    'Dan Shechtman|2011': 'The most recent unshared chemistry prize.',
+    'John B. Goodenough|2019': 'At 97, the oldest Nobel laureate in any category.',
+    'K. Barry Sharpless|2022': 'His second chemistry prize, after 2001.',
+  };
+
+  // ---------- helpers ----------
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const median = (a) => {
+    const s = [...a].sort((x, y) => x - y);
+    const m = s.length >> 1;
+    return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+  };
+  const lin = (d0, d1, r0, r1) => (v) => r0 + ((v - d0) / (d1 - d0)) * (r1 - r0);
+  const decadeOf = (y) => Math.floor(y / 10) * 10;
+  const decadeLabel = (d) => `${d}s`;
+  const fieldVar = (k) => `var(--f-${k})`;
+  function el(tag, attrs = {}, html) {
+    const n = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
+    if (html != null) n.innerHTML = html;
+    return n;
+  }
+  function sv(tag, attrs = {}, text) {
+    const n = document.createElementNS(SVGNS, tag);
+    for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
+    if (text != null) n.textContent = text;
+    return n;
+  }
+  function initials(name) {
+    const p = name.replace(/^(Sir|Lord) /, '').replace(/ Jr\.$/, '').split(/\s+/);
+    return (p[0][0] + p[p.length - 1][0]).toUpperCase();
+  }
+  function portrait(l, cls, fd, lazy = true) {
+    if (PHOTOS[l.id]) {
+      return `<img class="${cls}" src="img/${l.id}.jpg" alt="Portrait of ${esc(l.n)}" width="160" height="160"${lazy ? ' loading="lazy"' : ''} decoding="async">`;
+    }
+    return `<span class="${cls} mono-ph" style="--c:${fieldVar(fd)}" role="img" aria-label="${esc(l.n)}: no freely licensed portrait">${initials(l.n)}</span>`;
+  }
+  function licenceLink(lic, licUrl) {
+    return licUrl ? `<a href="${esc(licUrl)}" target="_blank" rel="noopener">${esc(lic)}</a>` : esc(lic);
+  }
+  function photoCredit(l) {
+    const c = PHOTOS[l.id];
+    if (!c) return '<p class="d-credit">No freely licensed portrait available; monogram shown.</p>';
+    const [artist, lic, licUrl, page] = c;
+    return `<p class="d-credit">Photo: <a href="${esc(page)}" target="_blank" rel="noopener">${esc(artist || 'Wikimedia Commons')}</a> · ${licenceLink(lic, licUrl)}</p>`;
+  }
+  function surname(name) {
+    const parts = name.replace(/ Jr\.$/, '').split(' ');
+    return parts[parts.length - 1];
+  }
+
+  // ---------- tooltip ----------
+  const tip = $('tip');
+  function showTip(html, x, y) {
+    tip.innerHTML = html;
+    tip.hidden = false;
+    const r = tip.getBoundingClientRect();
+    let left = x + 14;
+    let top = y + 16;
+    if (left + r.width > innerWidth - 8) left = Math.max(8, x - r.width - 14);
+    if (top + r.height > innerHeight - 8) top = Math.max(8, y - r.height - 14);
+    tip.style.left = `${left}px`;
+    tip.style.top = `${top}px`;
+  }
+  const hideTip = () => { tip.hidden = true; };
+  window.addEventListener('scroll', hideTip, { passive: true });
+
+  // ---------- countdown ----------
+  function renderNext() {
+    const now = Date.now();
+    const local = new Date(ANNOUNCE).toLocaleString(undefined, {
+      weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short',
+    });
+    if (now < ANNOUNCE) {
+      const mins = Math.floor((ANNOUNCE - now) / 60000);
+      const d = Math.floor(mins / 1440);
+      const h = Math.floor((mins % 1440) / 60);
+      const m = mins % 60;
+      const parts = d > 0 ? [`${d} day${d === 1 ? '' : 's'}`, `${h} h`] : [`${h} h`, `${m} min`];
+      $('next-count').textContent = `in ${parts.join(' ')}`;
+      $('next-local').textContent = `In your time zone: ${local}. Announced by the Royal Swedish Academy of Sciences in Stockholm.`;
+    } else {
+      $('next-count').textContent = 'announced';
+      $('next-local').innerHTML = 'The 2026 laureates have been named. This page covers 1901–2025; see the <a href="https://www.nobelprize.org/prizes/chemistry/" target="_blank" rel="noopener">official prize pages</a> for the latest.';
+    }
+  }
+
+  // ---------- stats ----------
+  function renderStats() {
+    const women = AWARDS.filter((a) => a.f).length;
+    const none = DATA.filter((d) => d.none).length;
+    const early = median(AWARDS.filter((a) => a.y <= 1950).map((a) => a.age));
+    const late = median(AWARDS.filter((a) => a.y > 2000).map((a) => a.age));
+    const lastSolo = Math.max(...PRIZES.filter((p) => p.L.length === 1).map((p) => p.y));
+    const items = [
+      [`${women}`, `women among ${new Set(AWARDS.map((a) => a.id)).size} laureates`],
+      [`${none}`, 'years with no prize, most during the world wars'],
+      [`${early}<small> → </small>${late}`, 'median age at the award, 1901–1950 vs 2001–2025'],
+      [`${lastSolo}`, 'the last year one person won alone'],
+    ];
+    $('stats').innerHTML = items.map(([v, l]) => `<div class="stat"><span class="stat-v">${v}</span><span class="stat-l">${l}</span></div>`).join('');
+  }
+
+  // ---------- periodic table ----------
+  let selected = 2025;
+  let filterField = null;
+  let filterWomen = false;
+
+  function prizeTip(d) {
+    if (d.none) return `<b>${d.y}</b><br>No prize awarded`;
+    return `<div class="tf">${d.L.map((l) => portrait(l, 'tip-ph', d.fd, false)).join('')}</div><span class="tm">${d.y} · ${esc(FMAP[d.fd].name)}</span><br><b>${esc(d.t)}</b><br>${d.L.map((l) => esc(l.n)).join(', ')}`;
+  }
+
+  function renderTable() {
+    const g = $('ptable');
+    g.append(el('div', { class: 'pt-corner', 'aria-hidden': 'true' }, 'year →'));
+    for (let i = 0; i < 10; i++) g.append(el('div', { class: 'pt-colhead', 'aria-hidden': 'true' }, `…${i}`));
+    let idx = 0;
+    for (const d0 of DECADES) {
+      g.append(el('div', { class: 'pt-rowhead' }, `${d0}`));
+      for (let i = 0; i < 10; i++) {
+        const y = d0 + i;
+        idx += 1;
+        let t;
+        if (y === 1900) {
+          t = el('div', { class: 'tile key', 'aria-hidden': 'true' },
+            `<div class="t-top"><span class="key-ann">year</span><span class="key-ann">laureates</span></div>
+             <span class="t-sym">Key</span>
+             <span class="key-ann">symbol, then<br>the discovery</span>`);
+        } else if (y > 2026) {
+          t = el('div', { class: 'tile future', 'aria-hidden': 'true' });
+        } else if (y === 2026) {
+          t = el('button', { class: 'tile next-tile anim', type: 'button', 'data-year': '2026', 'aria-pressed': 'false', 'aria-label': '2026: to be announced 7 October' },
+            `<div class="t-top"><span class="t-year">2026</span></div><span class="t-sym">?</span><span class="t-label">${Date.now() < ANNOUNCE ? 'Announced 7 October' : 'Announced'}</span>`);
+        } else {
+          const d = BY_YEAR.get(y);
+          if (d.none) {
+            t = el('button', { class: 'tile none anim', type: 'button', 'data-year': y, 'aria-pressed': 'false', 'aria-label': `${y}: no prize awarded` },
+              `<div class="t-top"><span class="t-year">${y}</span></div><span class="t-sym">–</span><span class="t-label">No prize</span>`);
+          } else {
+            const dots = d.L.map((l) => `<i${l.f ? ' class="w"' : ''}></i>`).join('');
+            t = el('button', {
+              class: 'tile anim', type: 'button', 'data-year': y, 'data-field': d.fd, 'aria-pressed': 'false',
+              'aria-label': `${y}, ${FMAP[d.fd].name}: ${d.t}. ${d.L.map((l) => l.n).join(', ')}`,
+              style: `--c:${fieldVar(d.fd)}`,
+            }, `<div class="t-top"><span class="t-year">${y}</span><span class="t-dots" aria-hidden="true">${dots}</span></div><span class="t-sym">${esc(d.sym)}</span><span class="t-label">${esc(d.t)}</span>`);
+          }
+        }
+        t.style.setProperty('--i', idx);
+        g.append(t);
+      }
+    }
+    g.addEventListener('click', (e) => {
+      const t = e.target.closest('button.tile');
+      if (t) select(Number(t.dataset.year), true);
+    });
+    g.addEventListener('pointermove', (e) => {
+      const t = e.target.closest('button.tile');
+      if (!t || e.pointerType === 'touch') { hideTip(); return; }
+      const y = Number(t.dataset.year);
+      const html = y === 2026 ? '<b>2026</b><br>Announced Wednesday 7 October' : prizeTip(BY_YEAR.get(y));
+      showTip(html, e.clientX, e.clientY);
+    });
+    g.addEventListener('pointerleave', hideTip);
+  }
+
+  function applyFilters() {
+    document.querySelectorAll('#ptable button.tile[data-year]').forEach((t) => {
+      const d = BY_YEAR.get(Number(t.dataset.year));
+      let on = true;
+      if (filterField) on = !!d && !d.none && d.fd === filterField;
+      if (filterWomen) on = on && !!d && !d.none && d.L.some((l) => l.f);
+      t.classList.toggle('dim', (filterField || filterWomen) && !on);
+    });
+    document.querySelectorAll('#filters .chip').forEach((c) => {
+      const pressed = c.dataset.f === 'all' ? (!filterField && !filterWomen)
+        : c.dataset.f === 'women' ? filterWomen : c.dataset.f === filterField;
+      c.setAttribute('aria-pressed', String(pressed));
+    });
+  }
+
+  function renderFilters() {
+    const f = $('filters');
+    const counts = Object.fromEntries(FIELDS.map((x) => [x.k, PRIZES.filter((p) => p.fd === x.k).length]));
+    const womenYears = PRIZES.filter((p) => p.L.some((l) => l.f)).length;
+    f.innerHTML = `<button type="button" class="chip" data-f="all">All prizes <span class="chip-n">${PRIZES.length}</span></button>`
+      + FIELDS.map((x) => `<button type="button" class="chip" data-f="${x.k}" style="--c:${fieldVar(x.k)}"><i class="sw"></i>${esc(x.name)} <span class="chip-n">${counts[x.k]}</span></button>`).join('')
+      + `<button type="button" class="chip" data-f="women"><i class="sw round"></i>Won by a woman <span class="chip-n">${womenYears}</span></button>`;
+    f.addEventListener('click', (e) => {
+      const c = e.target.closest('.chip');
+      if (!c) return;
+      const k = c.dataset.f;
+      if (k === 'all') { filterField = null; filterWomen = false; }
+      else if (k === 'women') filterWomen = !filterWomen;
+      else filterField = filterField === k ? null : k;
+      applyFilters();
+    });
+  }
+
+  function select(y, fromUser) {
+    selected = y;
+    document.querySelectorAll('#ptable button.tile').forEach((t) => t.setAttribute('aria-pressed', String(Number(t.dataset.year) === y)));
+    const box = $('detail');
+    const d = BY_YEAR.get(y);
+    if (y === 2026) {
+      box.innerHTML = `<div><div class="d-year">2026</div><div class="d-sym">to come</div></div>
+        <div><h3 class="d-title">The next prize</h3>
+        <p class="d-empty">The Royal Swedish Academy of Sciences will announce the 2026 chemistry laureates on Wednesday 7 October, at 11:45 CEST at the earliest. The prize can be shared by up to three people. Follow the announcement on the <a href="https://www.nobelprize.org/prizes/about/prize-announcement-dates" target="_blank" rel="noopener">official schedule page</a>.</p></div>`;
+    } else if (d.none) {
+      const war = y < 1919 ? ', during the First World War' : y === 1919 ? ', the year after the First World War ended' : y >= 1940 ? ', during the Second World War' : '';
+      box.innerHTML = `<div><div class="d-year">${y}</div><div class="d-sym">no prize</div></div>
+        <div><h3 class="d-title">No prize awarded</h3>
+        <p class="d-empty">The chemistry prize was not given in ${y}${war}. Under the statutes a prize can be withheld when no nominated work is judged to meet the criteria. The prize money went back into the Nobel funds.</p></div>`;
+    } else {
+      const items = d.L.map((l) => {
+        const note = NOTES[`${l.n}|${y}`];
+        const where = l.an ? `${esc(l.an)}, ${esc(l.ac)}` : esc(l.ac || 'No institution listed');
+        return `<li>
+          <div class="d-who">${portrait(l, 'd-ph', d.fd, false)}<div>
+            <h4 class="d-name">${l.f ? '<i class="wdot" aria-label="woman"></i>' : ''}${esc(l.n)}</h4>
+            <p class="d-meta">${SHARE[l.s] || l.s} · age ${l.age}</p></div></div>
+          <p class="d-meta">Born ${l.by} in ${esc(l.bc)}<br>${where}</p>
+          <p class="d-mot">“${esc(l.m)}”</p>
+          ${note ? `<p class="d-note">${esc(note)}</p>` : ''}
+          <a class="d-link" href="https://www.nobelprize.org/laureate/${l.id}" target="_blank" rel="noopener">Laureate facts ↗</a>
+          ${photoCredit(l)}
+        </li>`;
+      }).join('');
+      box.innerHTML = `<div><div class="d-year">${y}</div><div class="d-sym">symbol: ${esc(d.sym)}</div></div>
+        <div><span class="d-field" style="--c:${fieldVar(d.fd)}"><i></i>${esc(FMAP[d.fd].name)}</span>
+        <h3 class="d-title">${esc(d.t)}</h3><ul class="d-list">${items}</ul></div>`;
+    }
+    if (fromUser) {
+      const r = box.getBoundingClientRect();
+      if (r.top > innerHeight - 80 || r.bottom < 0) box.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' });
+    }
+  }
+
+  // ---------- data tables ----------
+  function dataTable(head, rows) {
+    return `<table class="dt"><thead><tr>${head.map((h) => `<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.map((r) => `<tr>${r.map((c) => `<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+  }
+
+  // ---------- age scatter ----------
+  const ageMedians = DECADES.map((d0) => {
+    const a = AWARDS.filter((x) => decadeOf(x.y) === d0).map((x) => x.age);
+    return { d0, med: median(a), min: Math.min(...a), max: Math.max(...a), n: a.length };
+  });
+
+  function renderAge() {
+    const box = $('c-age');
+    const W = Math.max(280, box.clientWidth);
+    const H = W < 560 ? 270 : 340;
+    const m = { l: 30, r: 10, t: 14, b: 26 };
+    const x = lin(1900, 2027, m.l, W - m.r);
+    const y = lin(30, 100, H - m.b, m.t);
+    const s = sv('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H });
+    for (let v = 30; v <= 100; v += 10) {
+      s.append(sv('line', { x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), class: v === 30 ? 'base-l' : 'grid-l' }));
+      s.append(sv('text', { x: m.l - 6, y: y(v) + 4, 'text-anchor': 'end' }, v));
+    }
+    const step = W < 480 ? 40 : 20;
+    for (let v = 1900; v <= 2020; v += step) s.append(sv('text', { x: x(v), y: H - 6, 'text-anchor': 'middle' }, v));
+    // decade medians as steps
+    let dPath = '';
+    ageMedians.forEach((a) => {
+      const x0 = x(Math.max(a.d0, 1901));
+      const x1 = x(Math.min(a.d0 + 10, 2026));
+      dPath += `${dPath ? 'L' : 'M'}${x0},${y(a.med)}L${x1},${y(a.med)}`;
+    });
+    s.append(sv('path', { d: dPath, fill: 'none', stroke: 'var(--ink)', 'stroke-width': 2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round', opacity: 0.85 }));
+    // dots, women last so they sit on top
+    const pts = AWARDS.map((a) => ({ a, px: x(a.y + 0.5) + (a.i - (a.k - 1) / 2) * 3, py: y(a.age) }));
+    const order = [...pts].sort((p, q) => Number(p.a.f) - Number(q.a.f));
+    for (const p of order) {
+      s.append(sv('circle', { cx: p.px, cy: p.py, r: 4, fill: p.a.f ? 'var(--gold)' : 'var(--dot)', stroke: 'var(--surface)', 'stroke-width': 2 }));
+    }
+    // selective labels: first and peak decade median, youngest, oldest
+    const first = ageMedians[0];
+    const peak = ageMedians.reduce((b, a) => (a.med > b.med ? a : b));
+    s.append(sv('text', { x: x(1901), y: y(first.med) - 8, class: 'ann' }, `median ${first.med}`));
+    s.append(sv('text', { x: x(peak.d0 + 5), y: y(peak.med) - 8, class: 'ann', 'text-anchor': 'middle' }, `median ${peak.med}`));
+    const youngest = pts.reduce((b, p) => (p.a.age < b.a.age ? p : b));
+    const oldest = pts.reduce((b, p) => (p.a.age > b.a.age ? p : b));
+    s.append(sv('text', { x: youngest.px + 8, y: youngest.py + 4, class: 'ann-b' }, `${surname(youngest.a.n)}, ${youngest.a.age}`));
+    s.append(sv('text', { x: oldest.px - 8, y: oldest.py + 4, class: 'ann-b', 'text-anchor': 'end' }, `${surname(oldest.a.n)}, ${oldest.a.age}`));
+    // hover ring + nearest-point layer
+    const ring = sv('circle', { r: 7, fill: 'none', stroke: 'var(--ink)', 'stroke-width': 2, visibility: 'hidden' });
+    s.append(ring);
+    const hit = sv('rect', { x: m.l, y: m.t, width: W - m.l - m.r, height: H - m.t - m.b, fill: 'transparent' });
+    s.append(hit);
+    hit.addEventListener('pointermove', (e) => {
+      const r = s.getBoundingClientRect();
+      const mx = ((e.clientX - r.left) / r.width) * W;
+      const my = ((e.clientY - r.top) / r.height) * H;
+      let best = null;
+      let bd = 26 * 26;
+      for (const p of pts) {
+        const dd = (p.px - mx) ** 2 + (p.py - my) ** 2;
+        if (dd < bd) { bd = dd; best = p; }
+      }
+      if (!best) { ring.setAttribute('visibility', 'hidden'); hideTip(); return; }
+      ring.setAttribute('cx', best.px);
+      ring.setAttribute('cy', best.py);
+      ring.setAttribute('visibility', 'visible');
+      showTip(`<b>${esc(best.a.n)}</b><br><span class="tm">${best.a.y} · age ${best.a.age}</span>`, e.clientX, e.clientY);
+    });
+    hit.addEventListener('pointerleave', () => { ring.setAttribute('visibility', 'hidden'); hideTip(); });
+    hit.addEventListener('click', (e) => {
+      const r = s.getBoundingClientRect();
+      const mx = ((e.clientX - r.left) / r.width) * W;
+      const my = ((e.clientY - r.top) / r.height) * H;
+      const best = pts.reduce((b, p) => ((p.px - mx) ** 2 + (p.py - my) ** 2 < (b.px - mx) ** 2 + (b.py - my) ** 2 ? p : b));
+      select(best.a.y, false);
+      $('table').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+    });
+    box.replaceChildren(s);
+  }
+
+  // ---------- stacked columns (team size, field) ----------
+  function stackedColumns(box, cfg) {
+    const W = Math.max(280, box.clientWidth);
+    const H = W < 560 ? 240 : 290;
+    const m = { l: 26, r: 6, t: 12, b: 30 };
+    const n = cfg.rows.length;
+    const band = (W - m.l - m.r) / n;
+    const bw = Math.min(24, band * 0.62);
+    const y = lin(0, cfg.yMax, H - m.b, m.t);
+    const s = sv('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H });
+    for (let v = 0; v <= cfg.yMax; v += 2) {
+      s.append(sv('line', { x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), class: v === 0 ? 'base-l' : 'grid-l' }));
+      s.append(sv('text', { x: m.l - 6, y: y(v) + 4, 'text-anchor': 'end' }, v));
+    }
+    const hits = [];
+    cfg.rows.forEach((row, i) => {
+      const cx = m.l + band * i + band / 2;
+      const x0 = cx - bw / 2;
+      const segs = cfg.keys.map((k) => ({ k, v: row.vals[k] || 0 })).filter((sg) => sg.v > 0);
+      let acc = 0;
+      segs.forEach((sg, j) => {
+        const yb = y(acc);
+        const yt = y(acc + sg.v);
+        acc += sg.v;
+        const top = j === segs.length - 1;
+        const bottomGap = j === 0 ? 0 : 1;
+        const topGap = top ? 0 : 1;
+        const yy = yt + topGap;
+        const hh = Math.max(0, yb - yt - topGap - bottomGap);
+        const r = top ? Math.min(4, hh, bw / 2) : 0;
+        const d = r > 0
+          ? `M${x0},${yy + hh}V${yy + r}Q${x0},${yy} ${x0 + r},${yy}H${x0 + bw - r}Q${x0 + bw},${yy} ${x0 + bw},${yy + r}V${yy + hh}Z`
+          : `M${x0},${yy + hh}V${yy}H${x0 + bw}V${yy + hh}Z`;
+        s.append(sv('path', { d, fill: cfg.color(sg.k) }));
+      });
+      const showLab = band >= 40 || i % 2 === 0;
+      if (showLab) s.append(sv('text', { x: cx, y: H - 10, 'text-anchor': 'middle' }, band >= 40 ? decadeLabel(row.d0) : row.d0));
+      const hit = sv('rect', { x: m.l + band * i, y: m.t, width: band, height: H - m.t - m.b, class: 'col-hit' });
+      hit.addEventListener('pointermove', (e) => { hits.forEach((h) => h.classList.remove('on')); hit.classList.add('on'); showTip(cfg.tip(row), e.clientX, e.clientY); });
+      hit.addEventListener('pointerleave', () => { hit.classList.remove('on'); hideTip(); });
+      hits.push(hit);
+    });
+    hits.forEach((h) => s.append(h));
+    if (cfg.annotate) cfg.annotate(s, { m, band, y, W, H });
+    box.replaceChildren(s);
+  }
+
+  const decadeSpan = (d0) => (d0 === 1900 ? '1901–09' : d0 === 2020 ? '2020–25' : `${d0}–${String(d0 + 9).slice(2)}`);
+
+  const teamRows = DECADES.map((d0) => {
+    const ps = PRIZES.filter((p) => decadeOf(p.y) === d0);
+    const vals = { 1: 0, 2: 0, 3: 0 };
+    ps.forEach((p) => { vals[p.L.length] += 1; });
+    return { d0, vals, total: ps.length };
+  });
+  const TEAM_NAMES = { 1: 'One laureate', 2: 'Two', 3: 'Three' };
+
+  function renderTeam() {
+    stackedColumns($('c-team'), {
+      rows: teamRows,
+      keys: ['1', '2', '3'],
+      yMax: 10,
+      color: (k) => `var(--ord-${k})`,
+      tip: (row) => `<span class="tm">${decadeSpan(row.d0)} · ${row.total} prizes</span>` + ['1', '2', '3'].map((k) => `<div class="tr"><i style="--c:var(--ord-${k})"></i>${TEAM_NAMES[k]}: ${row.vals[k]}</div>`).join(''),
+    });
+  }
+
+  const fieldRows = DECADES.map((d0) => {
+    const ps = PRIZES.filter((p) => decadeOf(p.y) === d0);
+    const vals = {};
+    FIELDS.forEach((f) => { vals[f.k] = ps.filter((p) => p.fd === f.k).length; });
+    return { d0, vals, total: ps.length };
+  });
+
+  function renderField() {
+    stackedColumns($('c-field'), {
+      rows: fieldRows,
+      keys: FIELDS.map((f) => f.k),
+      yMax: 10,
+      color: fieldVar,
+      tip: (row) => `<span class="tm">${decadeSpan(row.d0)} · ${row.total} prizes</span>` + [...FIELDS].reverse().map((f) => `<div class="tr"><i style="--c:${fieldVar(f.k)}"></i>${esc(f.name)}: ${row.vals[f.k]}</div>`).join(''),
+    });
+  }
+
+  // ---------- geography heat table ----------
+  function renderGeo() {
+    const top = ['USA', 'Germany', 'UK', 'France', 'Switzerland', 'Japan', 'Sweden'];
+    const rows = [...top, 'Other'];
+    const count = (c, d0) => AWARDS.filter((a) => decadeOf(a.y) === d0 && (c === 'Other' ? !top.includes(a.ac) : a.ac === c)).length;
+    const max = Math.max(...top.flatMap((c) => DECADES.map((d0) => count(c, d0))));
+    let html = '<table class="heat"><thead><tr><th></th>' + DECADES.map((d0) => `<th>${String(d0).slice(2)}s</th>`).join('') + '<th>Total</th></tr></thead><tbody>';
+    for (const c of rows) {
+      let tot = 0;
+      html += `<tr><th class="rowh" scope="row">${c === 'USA' ? 'United States' : c === 'UK' ? 'United Kingdom' : c}</th>`;
+      for (const d0 of DECADES) {
+        const v = count(c, d0);
+        tot += v;
+        if (!v) { html += '<td class="z">·</td>'; continue; }
+        const pct = Math.round(14 + (v / max) * 76);
+        const fg = pct > 55 ? 'var(--seq-text-hi)' : 'var(--ink)';
+        html += `<td style="background:color-mix(in oklab, var(--seq) ${pct}%, var(--surface));color:${fg}" title="${c}, ${decadeSpan(d0)}: ${v}">${v}</td>`;
+      }
+      html += `<td class="tot">${tot}</td></tr>`;
+    }
+    html += '</tbody></table>';
+    $('c-geo').innerHTML = html;
+  }
+
+  // ---------- women waffle ----------
+  function renderWomen() {
+    const box = $('c-waffle');
+    let html = '';
+    for (let r = 0; r < Math.ceil(AWARDS.length / 20); r++) {
+      const chunk = AWARDS.slice(r * 20, r * 20 + 20);
+      html += `<span class="waffle-lab">${chunk[0].y}</span><div class="waffle-row">`
+        + chunk.map((a) => `<i class="${a.f ? 'w' : ''}" data-tip="${esc(a.n)}|${a.y}"></i>`).join('') + '</div>';
+    }
+    box.innerHTML = html;
+    box.addEventListener('pointermove', (e) => {
+      const c = e.target.closest('i[data-tip]');
+      if (!c) { hideTip(); return; }
+      const [n, y] = c.dataset.tip.split('|');
+      showTip(`<b>${n}</b><br><span class="tm">${y}</span>`, e.clientX, e.clientY);
+    });
+    box.addEventListener('pointerleave', hideTip);
+    const list = $('women-list');
+    list.innerHTML = AWARDS.filter((a) => a.f).map((a) => {
+      const p = BY_YEAR.get(a.y);
+      return `<li><span class="mono">${a.y}</span>${portrait(a, 'w-ph', p.fd)}<span><button type="button" data-year="${a.y}">${esc(a.n)}</button>, ${esc(p.t.toLowerCase())}</span></li>`;
+    }).join('');
+    list.addEventListener('click', (e) => {
+      const b = e.target.closest('button[data-year]');
+      if (!b) return;
+      select(Number(b.dataset.year), false);
+      $('table').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+    });
+  }
+
+  function renderCredits() {
+    const people = [...new Map(AWARDS.map((a) => [a.id, a])).values()].sort((a, b) => a.y - b.y);
+    const withPhoto = people.filter((a) => PHOTOS[a.id]);
+    const without = people.filter((a) => !PHOTOS[a.id]);
+    $('credits-sum').textContent = `Photo credits (${withPhoto.length} laureates)`;
+    $('no-photo-names').textContent = without.map((a) => `${a.n} (${a.y})`).join(', ');
+    $('credits').innerHTML = withPhoto.map((a) => {
+      const [artist, lic, licUrl, page] = PHOTOS[a.id];
+      return `<li>${esc(a.n)}: <a href="${esc(page)}" target="_blank" rel="noopener">${esc(artist || 'Wikimedia Commons')}</a>, ${licenceLink(lic, licUrl)}</li>`;
+    }).join('');
+  }
+
+  // ---------- tables & legend ----------
+  function renderTables() {
+    $('t-age').innerHTML = dataTable(['Decade', 'Laureates', 'Youngest', 'Median', 'Oldest'],
+      ageMedians.map((a) => [decadeSpan(a.d0), a.n, a.min, a.med, a.max]));
+    $('t-team').innerHTML = dataTable(['Decade', 'Prizes', 'One laureate', 'Two', 'Three'],
+      teamRows.map((r) => [decadeSpan(r.d0), r.total, r.vals[1], r.vals[2], r.vals[3]]));
+    $('t-field').innerHTML = dataTable(['Decade', ...FIELDS.map((f) => esc(f.name))],
+      fieldRows.map((r) => [decadeSpan(r.d0), ...FIELDS.map((f) => r.vals[f.k])]));
+    $('lg-field').innerHTML = [...FIELDS].reverse().map((f) => `<span><i class="lg-sw" style="--c:${fieldVar(f.k)}"></i>${esc(f.name)}</span>`).join('');
+  }
+
+  // ---------- boot ----------
+  renderNext();
+  setInterval(renderNext, 30000);
+  renderStats();
+  renderFilters();
+  renderTable();
+  applyFilters();
+  const hashYear = Number((location.hash.match(/^#y(\d{4})$/) || [])[1]);
+  select(BY_YEAR.has(hashYear) || hashYear === 2026 ? hashYear : selected, false);
+  renderTables();
+  renderCredits();
+  applyFilters();
+  renderWomen();
+  renderGeo();
+  const charts = [[$('c-age'), renderAge], [$('c-team'), renderTeam], [$('c-field'), renderField]];
+  charts.forEach(([, fn]) => fn());
+  let raf = 0;
+  const ro = new ResizeObserver(() => {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => charts.forEach(([, fn]) => fn()));
+  });
+  charts.forEach(([n]) => ro.observe(n));
+})();
+</script>
+
+</body>
+</html>
