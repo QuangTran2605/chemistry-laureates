@@ -376,6 +376,8 @@ ol.credits li { break-inside: avoid; margin-bottom: 5px; }
 .chart text { font-family: var(--font-mono); font-size: 11px; fill: var(--muted); font-variant-numeric: tabular-nums; }
 .chart .ann { font-family: var(--font-display); font-size: 12px; fill: var(--ink-2); }
 .chart .ann-b { font-family: var(--font-display); font-size: 12px; font-weight: 600; fill: var(--ink); }
+/* A halo in the page colour keeps annotations readable where they cross data marks. */
+.chart .ann, .chart .ann-b { paint-order: stroke; stroke: var(--bg); stroke-width: 4px; stroke-linejoin: round; }
 .grid-l { stroke: var(--rule); stroke-width: 1; }
 .base-l { stroke: var(--rule-2); stroke-width: 1; }
 .col-hit { fill: transparent; }
